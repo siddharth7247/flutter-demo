@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/authentication/nested-tabbar_demo.dart';
+import 'package:flutter_demo/nested-tabbar_demo.dart';
 
 class TabbarDemo extends StatefulWidget {
   const TabbarDemo({super.key});
@@ -70,6 +70,7 @@ class _TabbarDemoState extends State<TabbarDemo> {
             currentIndex: selectedIndex,
             onTap: onNavBarItemTap,
             selectedItemColor: Colors.blue,
+            selectedIconTheme: IconThemeData(),
             unselectedItemColor: Colors.black,
           ),
         ),
