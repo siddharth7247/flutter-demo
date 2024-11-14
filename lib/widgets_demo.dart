@@ -115,19 +115,48 @@ class _WidgetsdemoState extends State<Widgetsdemo> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text("Alert Dialog"),
-                  content: const Text("Flaoting Action button is presssed"),
+                  titlePadding:const EdgeInsets.all(0),
+                  title: Container(
+                    height: 100,
+                    width: 100,
+                    decoration:const BoxDecoration(
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
+                      color: Colors.black
+                    ),
+                    child:const Icon(Icons.warning_rounded,color: Colors.white,size: 50,),
+                  ),
+                  content: const Text("Do You Want To Recive The Recipt via Email?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,),textAlign: TextAlign.center,),
                   actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("ok")),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("cancel")),
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+
+                        children: [
+
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton( 
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber
+                            ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Yes , I Do Want",style: TextStyle(color: Colors.white),)),
+                          ),
+                          
+                          SizedBox(
+                            width: double.infinity,
+                            child: OutlinedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("No , T Dont Wnat To",style: TextStyle(color: Colors.black),)),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 );
               });

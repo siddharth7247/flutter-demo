@@ -5,7 +5,8 @@ class CustomTextfield extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final IconData? suffixIcons;
-  const CustomTextfield({super.key, required this.controller, required this.hintText, required this.icon, this.suffixIcons});
+  final String validator;
+  const CustomTextfield({super.key, required this.controller, required this.hintText, required this.icon, this.suffixIcons, required this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +15,9 @@ class CustomTextfield extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         validator: (value) {
-          if(hintText == "Email"){
+          if(hintText == "email"){
              if(value == null || value.isEmpty){
-                  return 'please enter $hintText';
+                  return 'please enter $validator';
               }else{
                 const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
                 r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
@@ -29,9 +30,9 @@ class CustomTextfield extends StatelessWidget {
                 return !regex.hasMatch(value) ? 'Enter valid Email' : null ;
               }
           }
-          if(hintText == "Password"){
+          if(validator == "password"){
             if(value == null || value.isEmpty){
-                  return 'please enter $hintText';
+                  return 'please enter $validator';
               }else{
                   if (value.length < 8){
                       return 'password lenght must be 8 or more';
@@ -39,7 +40,7 @@ class CustomTextfield extends StatelessWidget {
               }
           }
           if(value == null || value.isEmpty){
-            return 'please enter $hintText';
+            return 'please enter $validator';
           }
         },
         decoration: InputDecoration(
