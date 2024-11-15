@@ -43,7 +43,9 @@ class CustomTextfield extends StatelessWidget {
             return 'please enter $validator';
           }
         },
+        
         decoration: InputDecoration(
+      
           hintText: hintText,
           prefixIcon: Icon(icon),
           suffix: Icon(suffixIcons),

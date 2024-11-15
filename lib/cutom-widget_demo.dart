@@ -47,6 +47,7 @@ class _CustomWidgetdDemoState extends State<CustomWidgetDemo> {
                 Container(
                   padding:const EdgeInsets.symmetric(vertical: 0,horizontal: 10),
                   child: IntlPhoneField(
+                      showCountryFlag: false,
                       decoration:const InputDecoration(
                           labelText: 'Phone Number',
                           border: OutlineInputBorder(
@@ -61,6 +62,9 @@ class _CustomWidgetdDemoState extends State<CustomWidgetDemo> {
                           print(phone.completeNumber);
                       },
                   ),
+                ),
+                TextFormField(
+                  
                 ),
                 CustomTextfield(controller: passwordController, hintText: 'Password', icon: Icons.password,suffixIcons: Icons.visibility_off,validator: 'password',),
                 const SizedBox(height: 10,),

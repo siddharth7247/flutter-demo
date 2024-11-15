@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/edit_notes_screen.dart';
 
  StreamController<List<String>> controller = StreamController.broadcast();
-
-List<String> data  = [];
+ List<String> data  = [];
 
 class StreamBuilderDemo extends StatefulWidget {
   const StreamBuilderDemo({super.key});
@@ -15,8 +15,6 @@ class StreamBuilderDemo extends StatefulWidget {
 
 class _MyWidgetState extends State<StreamBuilderDemo> {
   
- 
-
   TextEditingController noteController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -33,21 +31,16 @@ class _MyWidgetState extends State<StreamBuilderDemo> {
               child: StreamBuilder(
                 stream: controller.stream,
                 builder: (context, snapshot) {
-                  print(snapshot.data);
-                  if(snapshot.hasData){
                   return ListView.builder(
-                  itemCount: snapshot.data?.length??0,
+                  itemCount: /*snapshot.data?.length??0*/data.length,
                   itemBuilder: (context, index) {
                     return Card(
                       child: ListTile(
-                        title: Text(snapshot.data?[index]??''),
+                        title: Text(data[index]),
                       ),
                     );
-                  },);
-             }else{
-              return Text('No note founds');
-             }
-  
+                  },
+              );  
             },
           )),
           TextFormField(
@@ -68,6 +61,14 @@ class _MyWidgetState extends State<StreamBuilderDemo> {
                 )),
           ),
         ],
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 50),
+        child: FloatingActionButton(
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EditNotesScreen(),));
+          },
+          child:const Icon(Icons.edit),),
       ),
     );
   }
