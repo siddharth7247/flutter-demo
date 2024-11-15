@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/cutom-widget_demo.dart';
 import 'package:flutter_demo/home_screen.dart';
 import 'package:flutter_demo/listview_demo.dart';
+import 'package:flutter_demo/stream_builder_demo.dart';
 import 'package:flutter_demo/tabbar_demo.dart';
 import 'package:flutter_demo/widgets_demo.dart';
 
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         '/widgetsDemoScreen':(context) => const Widgetsdemo(),
         '/tabBarDemoScree':(context) => const TabbarDemo(),
         '/customWidgetDemoScreen':(context) => const CustomWidgetDemo(),
-        '/listviewDemoScreen' : (context) => const ListViewDemo()
+        '/listviewDemoScreen' : (context) => const ListViewDemo(),
+        '/streamBuilderDemoScreen' : (context) => const StreamBuilderDemo()
       },
     );
   }

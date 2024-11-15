@@ -42,17 +42,20 @@ class _HomescreenState extends State<Homescreen> {
                     ));
               }, child: const Text("Signup App")),
               ElevatedButton(onPressed: (){
-                Navigator.pushNamed(context, '/tabBarDemoScree');
+                Navigator.pushNamed(context,'/tabBarDemoScree');
               }, child: const Text("Tabbar,Botton Navigation demo")),
               ElevatedButton(onPressed: (){
-                Navigator.pushNamed(context, '/customWidgetDemoScreen');
+                Navigator.pushNamed(context,'/customWidgetDemoScreen');
               }, child: const Text("Custom Widget,Form valiadtion demo")),
                ElevatedButton(onPressed: (){
                Navigator.pushNamed(context, '/listviewDemoScreen');
               }, child: const Text("ListView demo")),
                ElevatedButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder:(context) => const GridviewDemo()));
-              }, child: const Text("Gridview Demo"))
+              }, child: const Text("Gridview Demo")),
+              ElevatedButton(onPressed: (){
+                Navigator.pushNamed(context, '/streamBuilderDemoScreen');
+              }, child: const Text('Stream Builder demo'))
             ],
           ),
         ),
