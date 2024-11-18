@@ -55,7 +55,10 @@ class _HomescreenState extends State<Homescreen> {
               }, child: const Text("Gridview Demo")),
               ElevatedButton(onPressed: (){
                 Navigator.pushNamed(context, '/streamBuilderDemoScreen');
-              }, child: const Text('Stream Builder demo'))
+              }, child: const Text('Stream Builder demo')),
+              ElevatedButton(onPressed: (){
+                Navigator.pushNamed(context, '/themeDemoScreen');
+              }, child: const Text('Theme demo'))
             ],
           ),
         ),

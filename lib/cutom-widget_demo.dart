@@ -57,6 +57,7 @@ class _CustomWidgetdDemoState extends State<CustomWidgetDemo> {
                           borderSide:BorderSide(color: Colors.amberAccent),
                         )
                       ),
+                      showDropdownIcon: false,
                       initialCountryCode: 'IN',
                       onChanged: (phone) {
                           print(phone.completeNumber);
