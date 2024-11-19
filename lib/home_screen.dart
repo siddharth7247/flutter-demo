@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/authentication/splash_screen.dart';
-import 'package:flutter_demo/gridview_demo.dart';
+import 'package:flutter_demo/listview-gridview/gridview_demo.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -58,7 +58,10 @@ class _HomescreenState extends State<Homescreen> {
               }, child: const Text('Stream Builder demo')),
               ElevatedButton(onPressed: (){
                 Navigator.pushNamed(context, '/themeDemoScreen');
-              }, child: const Text('Theme demo'))
+              }, child: const Text('Theme demo')),
+               ElevatedButton(onPressed: (){
+                Navigator.pushNamed(context, '/isolateDemoScreen');
+              }, child: const Text('Isolate demo')),
             ],
           ),
         ),

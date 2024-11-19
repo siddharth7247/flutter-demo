@@ -1,9 +1,9 @@
-import 'dart:async';
-
+import 'package:rxdart/rxdart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/edit_notes_screen.dart';
+import 'package:flutter_demo/streams/edit_notes_screen.dart';
 
- StreamController<List<String>> controller = StreamController.broadcast();
+
+ BehaviorSubject<List<String>> controller = BehaviorSubject<List<String>>();
  List<String> data  = [];
 
 class StreamBuilderDemo extends StatefulWidget {
@@ -32,7 +32,7 @@ class _MyWidgetState extends State<StreamBuilderDemo> {
                 stream: controller.stream,
                 builder: (context, snapshot) {
                   return ListView.builder(
-                  itemCount: /*snapshot.data?.length??0*/data.length,
+                  itemCount: data.length,
                   itemBuilder: (context, index) {
                     return Card(
                       child: ListTile(
@@ -43,30 +43,33 @@ class _MyWidgetState extends State<StreamBuilderDemo> {
               );  
             },
           )),
-          TextFormField(
-            controller: noteController,
-            decoration: InputDecoration(
-                hintText: 'Enter note here',
-                suffixIcon: GestureDetector(
-                  child: const Icon(Icons.send),
-                  onTap: () {
-                    data.add(noteController.text);
-                    controller.add(data);
-                    noteController.clear();
-                  },
-                ),
-                border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.amberAccent, width: 3),
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: noteController,
+              decoration: InputDecoration(
+                  hintText: 'Enter note here',
+                  suffixIcon: GestureDetector(
+                    child: const Icon(Icons.send),
+                    onTap: () {
+                      data.add(noteController.text);
+                      controller.add(data);
+                      noteController.clear();
+                    },
+                  ),
+                  border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 2),
+                  )),
+            ),
           ),
         ],
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50),
+        padding: const EdgeInsets.symmetric(vertical: 60,horizontal: 0),
         child: FloatingActionButton(
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => EditNotesScreen(),));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const EditNotesScreen(),));
           },
           child:const Icon(Icons.edit),),
       ),

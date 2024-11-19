@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/theme_priview_screen.dart';
+import 'package:flutter_demo/theme/theme_priview_screen.dart';
 
 enum Themes { light, dark }
 
@@ -16,6 +16,7 @@ class CustomThemeData {
   bool? isCenterTitle;
   Color? appbarColor;
   Color? textColor;
+  double? contrastLevel;
 }
 
 StreamController<bool> isLightTheme = StreamController();
@@ -37,6 +38,7 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
   bool centerTitle = false;
   Color? _primaryColor;
   Color? _appBarColor;
+  double? _contrastLevel;
   Color? textColor;
   bool? isDarkTheme = false;
   bool? isCenterTitle = false;
@@ -53,15 +55,15 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              
             ),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
-                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   const Text(
                     ' --------- Costmize Your Theme --------',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -145,6 +147,18 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                     ],
                   ),
                   const Text('Select Appbar Color'),
+                   ListTile(
+                    title: const Text('Purple'),
+                    leading: Radio(
+                        value: AppbarColor.deepPurple,
+                        groupValue: appbarColor,
+                        onChanged: (AppbarColor? value) {
+                          setState(() {
+                            appbarColor = value!;
+                            _appBarColor = Colors.deepPurple;
+                          });
+                        }),
+                  ),
                   ListTile(
                     title: const Text('Green'),
                     leading: Radio(
@@ -200,6 +214,7 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                       onChanged: (value) {
                         setState(() {
                           _value = value;
+                          _contrastLevel = value;
                         });
                       }),
                   Row(
@@ -209,41 +224,49 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                       ElevatedButton(
                           onPressed: () {
                             var themeData = ThemeData(
+                              useMaterial3: true,
+                              colorScheme: ColorScheme.fromSeed(
+                                seedColor: _primaryColor ?? Colors.deepPurple,
+                                brightness: (isDarkTheme!) ? Brightness.dark : Brightness.light,
+                              ),
                               primaryColor: _primaryColor,
                               appBarTheme: AppBarTheme(
                                 backgroundColor: _appBarColor,
-                                centerTitle: isCenterTitle
-                              )
+                                centerTitle: isCenterTitle,
+                                titleTextStyle: TextStyle(color: textColor,fontSize: 25)
+                              ),
                             );
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ThemePriviewScreen(themeData: themeData,onTap: (){CustomThemeData t1 = CustomThemeData();
-                            t1.isLightTheme = isDarkTheme;
-                            t1.primaryColor = _primaryColor;
-                            t1.isCenterTitle = isCenterTitle;
-                            t1.appbarColor = _appBarColor;
-                            t1.textColor = textColor;
-                            customThemeData.add(t1);
-                            Navigator.pop(context);},),));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ThemePriviewScreen(
+                                    themeData: themeData,
+                                    onTap: () {
+                                      CustomThemeData t1 = CustomThemeData();
+                                      t1.isLightTheme = isDarkTheme;
+                                      t1.primaryColor = _primaryColor;
+                                      t1.isCenterTitle = isCenterTitle;
+                                      t1.appbarColor = _appBarColor;
+                                      t1.textColor = textColor;
+                                      t1.contrastLevel = _contrastLevel;
+                                      customThemeData.add(t1);
+                                      Navigator.of(context)..pop()..pop();
+                                    },
+                                  ),
+                                ));
                           },
                           child: const Text('Preiview')),
                       ElevatedButton(
                           onPressed: () {
-                            CustomThemeData t1 = CustomThemeData();
-                            t1.isLightTheme = isDarkTheme;
-                            t1.primaryColor = _primaryColor;
-                            t1.isCenterTitle = isCenterTitle;
-                            t1.appbarColor = _appBarColor;
-                            t1.textColor = textColor;
-                            customThemeData.add(t1);
                             Navigator.pop(context);
                           },
                           child: const Text('Apply')),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }

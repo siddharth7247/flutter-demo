@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ThemePriviewScreen extends StatelessWidget {
-   final ThemeData? themeData;
+   final ThemeData themeData;
    final VoidCallback onTap;
-  const ThemePriviewScreen({super.key, this.themeData, required this.onTap});
+  const ThemePriviewScreen({super.key, required this.themeData, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: themeData!,
+      data: themeData,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Theme Priview'),
@@ -17,9 +17,9 @@ class ThemePriviewScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              OutlinedButton(onPressed: onTap, child: const Text('Save')),
-              OutlinedButton(onPressed: () {}, child: const Text('Apply')),
-              OutlinedButton(onPressed: () {}, child: const Text('Cacel'))
+              OutlinedButton(onPressed: (){}, child: const Text('Save')),
+              OutlinedButton(onPressed: onTap, child: const Text('Apply')),
+              OutlinedButton(onPressed: () {Navigator.of(context)..pop()..pop();}, child: const Text('Cacel'))
             ],
           ),
         ),
