@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/theme/theme_priview_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum Themes { light, dark }
 
@@ -11,12 +13,23 @@ enum AppbarColor { deepPurple, green, orange }
 enum TextColor { black, orange }
 
 class CustomThemeData {
-  bool? isLightTheme;
+  bool? isDarkTheme;
   Color? primaryColor;
   bool? isCenterTitle;
   Color? appbarColor;
   Color? textColor;
   double? contrastLevel;
+
+   Map<String, dynamic> toJson() {
+    return {
+      "isLifhttheme": isLightTheme,
+      "primaryColor": primaryColor,
+      "isCenterTitle": isCenterTitle,
+      "appbarColor" :appbarColor,
+      "textColor" : textColor,
+      "contrastLevel" : contrastLevel
+    };
+  }
 }
 
 StreamController<bool> isLightTheme = StreamController();
@@ -42,7 +55,17 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
   Color? textColor;
   bool? isDarkTheme = false;
   bool? isCenterTitle = false;
+  late SharedPreferences prefes;
 
+  void getPrefe()async{
+      prefes = await SharedPreferences.getInstance();
+  }
+
+  @override
+  void initState() {
+    getPrefe();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
@@ -147,7 +170,7 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                     ],
                   ),
                   const Text('Select Appbar Color'),
-                   ListTile(
+                  ListTile(
                     title: const Text('Purple'),
                     leading: Radio(
                         value: AppbarColor.deepPurple,
@@ -227,14 +250,16 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                               useMaterial3: true,
                               colorScheme: ColorScheme.fromSeed(
                                 seedColor: _primaryColor ?? Colors.deepPurple,
-                                brightness: (isDarkTheme!) ? Brightness.dark : Brightness.light,
+                                brightness: (isDarkTheme!)
+                                    ? Brightness.dark
+                                    : Brightness.light,
                               ),
                               primaryColor: _primaryColor,
                               appBarTheme: AppBarTheme(
-                                backgroundColor: _appBarColor,
-                                centerTitle: isCenterTitle,
-                                titleTextStyle: TextStyle(color: textColor,fontSize: 25)
-                              ),
+                                  backgroundColor: _appBarColor,
+                                  centerTitle: isCenterTitle,
+                                  titleTextStyle: TextStyle(
+                                      color: textColor, fontSize: 25)),
                             );
                             Navigator.push(
                                 context,
@@ -243,22 +268,55 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                                     themeData: themeData,
                                     onTap: () {
                                       CustomThemeData t1 = CustomThemeData();
-                                      t1.isLightTheme = isDarkTheme;
+                                      t1.isDarkTheme = isDarkTheme;
                                       t1.primaryColor = _primaryColor;
                                       t1.isCenterTitle = isCenterTitle;
                                       t1.appbarColor = _appBarColor;
                                       t1.textColor = textColor;
                                       t1.contrastLevel = _contrastLevel;
                                       customThemeData.add(t1);
-                                      Navigator.of(context)..pop()..pop();
+                                   
+                                      prefes.setInt('AppbarColor',_appBarColor?.value??Colors.deepPurple.value);
+                                      prefes.setInt('PrimaryColor',_primaryColor?.value??Colors.deepPurple.value);
+                                      prefes.setBool('IsLightTheme',isDarkTheme??false);
+                                      prefes.setInt('TextColor',textColor?.value??Colors.deepPurple.value);
+                                      prefes.setDouble('ContrastLevel',_contrastLevel??0.5);
+
+                                      Navigator.of(context)
+                                        ..pop()
+                                        ..pop();
                                     },
+                                    onSave :(){
+                                        prefes.setInt('AppbarColor',_appBarColor?.value??Colors.deepPurple.value);
+                                        prefes.setInt('PrimaryColor',_primaryColor?.value??Colors.deepPurple.value);
+                                        prefes.setBool('IsLightTheme',isDarkTheme??false);
+                                        prefes.setInt('TextColor',textColor?.value??Colors.black.value);
+                                        prefes.setDouble('ContrastLevel',_contrastLevel??0.5);
+                                        Navigator.of(context)
+                                          ..pop()
+                                          ..pop();
+                                    }
                                   ),
                                 ));
                           },
                           child: const Text('Preiview')),
                       ElevatedButton(
                           onPressed: () {
+                            CustomThemeData t1 = CustomThemeData();
+                            t1.isDarkTheme = isDarkTheme;
+                            t1.primaryColor = _primaryColor;
+                            t1.isCenterTitle = isCenterTitle;
+                            t1.appbarColor = _appBarColor;
+                            t1.textColor = textColor;
+                            t1.contrastLevel = _contrastLevel;
+                            customThemeData.add(t1);
+                            prefes.setInt('AppbarColor',_appBarColor?.value??Colors.deepPurple.value);
+                            prefes.setInt('PrimaryColor',_primaryColor?.value??Colors.deepPurple.value);
+                            prefes.setBool('IsLightTheme',isDarkTheme??false);
+                            prefes.setInt('TextColor',textColor?.value??Colors.deepPurple.value);
+                            prefes.setDouble('ContrastLevel',_contrastLevel??0.5);
                             Navigator.pop(context);
+                          
                           },
                           child: const Text('Apply')),
                     ],

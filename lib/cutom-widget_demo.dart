@@ -18,7 +18,6 @@ class _CustomWidgetdDemoState extends State<CustomWidgetDemo> {
   TextEditingController countryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   void validate() {
-    // _formKey.currentState?.validate();
     if(_formKey.currentState!.validate()){
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data Submitted successfully')));
     }else{
@@ -48,7 +47,9 @@ class _CustomWidgetdDemoState extends State<CustomWidgetDemo> {
                   padding:const EdgeInsets.symmetric(vertical: 0,horizontal: 10),
                   child: IntlPhoneField(
                       showCountryFlag: false,
+                      dropdownIcon: Icon(Icons.arrow_downward),
                       decoration:const InputDecoration(
+                        suffix: Icon(Icons.phone),
                           labelText: 'Phone Number',
                           border: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
@@ -63,9 +64,6 @@ class _CustomWidgetdDemoState extends State<CustomWidgetDemo> {
                           print(phone.completeNumber);
                       },
                   ),
-                ),
-                TextFormField(
-                  
                 ),
                 CustomTextfield(controller: passwordController, hintText: 'Password', icon: Icons.password,suffixIcons: Icons.visibility_off,validator: 'password',),
                 const SizedBox(height: 10,),

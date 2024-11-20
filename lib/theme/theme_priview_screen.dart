@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class ThemePriviewScreen extends StatelessWidget {
    final ThemeData themeData;
    final VoidCallback onTap;
-  const ThemePriviewScreen({super.key, required this.themeData, required this.onTap});
+   final VoidCallback onSave;
+  const ThemePriviewScreen({super.key, required this.themeData, required this.onTap, required this.onSave});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class ThemePriviewScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              OutlinedButton(onPressed: (){}, child: const Text('Save')),
+              OutlinedButton(onPressed: onSave, child: const Text('Save')),
               OutlinedButton(onPressed: onTap, child: const Text('Apply')),
               OutlinedButton(onPressed: () {Navigator.of(context)..pop()..pop();}, child: const Text('Cacel'))
             ],

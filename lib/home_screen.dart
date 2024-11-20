@@ -62,6 +62,9 @@ class _HomescreenState extends State<Homescreen> {
                ElevatedButton(onPressed: (){
                 Navigator.pushNamed(context, '/isolateDemoScreen');
               }, child: const Text('Isolate demo')),
+              ElevatedButton(onPressed: (){
+                Navigator.pushNamed(context, '/apiDemoScreen');
+              }, child: const Text('Api demo')),
             ],
           ),
         ),
