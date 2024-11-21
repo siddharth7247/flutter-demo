@@ -70,7 +70,7 @@ class _TabbarDemoState extends State<TabbarDemo> {
             currentIndex: selectedIndex,
             onTap: onNavBarItemTap,
             selectedItemColor: Colors.blue,
-            selectedIconTheme: IconThemeData(),
+            selectedIconTheme: const IconThemeData(),
             unselectedItemColor: Colors.black,
           ),
         ),

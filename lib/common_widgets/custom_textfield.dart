@@ -5,8 +5,8 @@ class CustomTextfield extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final IconData? suffixIcons;
-  final String validator;
-  const CustomTextfield({super.key, required this.controller, required this.hintText, required this.icon, this.suffixIcons, required this.validator});
+  final String? validator;
+  const CustomTextfield({super.key, required this.controller, required this.hintText, required this.icon, this.suffixIcons,  this.validator});
 
   @override
   Widget build(BuildContext context) {

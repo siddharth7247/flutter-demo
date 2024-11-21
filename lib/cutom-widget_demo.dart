@@ -47,7 +47,7 @@ class _CustomWidgetdDemoState extends State<CustomWidgetDemo> {
                   padding:const EdgeInsets.symmetric(vertical: 0,horizontal: 10),
                   child: IntlPhoneField(
                       showCountryFlag: false,
-                      dropdownIcon: Icon(Icons.arrow_downward),
+                      dropdownIcon: const Icon(Icons.arrow_downward),
                       decoration:const InputDecoration(
                         suffix: Icon(Icons.phone),
                           labelText: 'Phone Number',

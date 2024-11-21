@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class Widgetsdemo extends StatefulWidget {
@@ -94,7 +96,7 @@ class _WidgetsdemoState extends State<Widgetsdemo> {
             GestureDetector(
               child: const Text("Gesture Ditector"),
               onTap: () {
-                print('Gesture detector button is pressed');
+                log('Gesture detector button is pressed');
               },
             ),
             const SizedBox(
@@ -103,7 +105,7 @@ class _WidgetsdemoState extends State<Widgetsdemo> {
             InkWell(
               child: const Text("Inkwell"),
               onTap: () {
-                print("Inkwell button is pressed");
+                log("Inkwell button is pressed");
               },
             )
           ],
@@ -145,7 +147,6 @@ class _WidgetsdemoState extends State<Widgetsdemo> {
                               },
                               child: const Text("Yes , I Do Want",style: TextStyle(color: Colors.white),)),
                           ),
-                          
                           SizedBox(
                             width: double.infinity,
                             child: OutlinedButton(

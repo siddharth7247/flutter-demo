@@ -39,7 +39,7 @@ class ListViewDemo extends StatelessWidget {
               ),
             ),
           ), separatorBuilder: (BuildContext context, int index) { 
-              return Divider(color: Colors.black);
+              return const Divider(color: Colors.black);
            },
         ),
       );

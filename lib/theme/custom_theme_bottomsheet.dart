@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/theme/theme_priview_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum Themes { light, dark }
-
 enum Colors1 { deepPurple, green, orange }
-
 enum AppbarColor { deepPurple, green, orange }
-
 enum TextColor { black, orange }
 
 class CustomThemeData {
@@ -19,17 +15,7 @@ class CustomThemeData {
   Color? appbarColor;
   Color? textColor;
   double? contrastLevel;
-
-   Map<String, dynamic> toJson() {
-    return {
-      "isLifhttheme": isLightTheme,
-      "primaryColor": primaryColor,
-      "isCenterTitle": isCenterTitle,
-      "appbarColor" :appbarColor,
-      "textColor" : textColor,
-      "contrastLevel" : contrastLevel
-    };
-  }
+   
 }
 
 StreamController<bool> isLightTheme = StreamController();
@@ -287,14 +273,23 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                                         ..pop();
                                     },
                                     onSave :(){
-                                        prefes.setInt('AppbarColor',_appBarColor?.value??Colors.deepPurple.value);
-                                        prefes.setInt('PrimaryColor',_primaryColor?.value??Colors.deepPurple.value);
-                                        prefes.setBool('IsLightTheme',isDarkTheme??false);
-                                        prefes.setInt('TextColor',textColor?.value??Colors.black.value);
-                                        prefes.setDouble('ContrastLevel',_contrastLevel??0.5);
-                                        Navigator.of(context)
-                                          ..pop()
-                                          ..pop();
+                                      CustomThemeData t1 = CustomThemeData();
+                                      t1.isDarkTheme = isDarkTheme;
+                                      t1.primaryColor = _primaryColor;
+                                      t1.isCenterTitle = isCenterTitle;
+                                      t1.appbarColor = _appBarColor;
+                                      t1.textColor = textColor;
+                                      t1.contrastLevel = _contrastLevel;
+                                      customThemeData.add(t1);
+                                      
+                                      prefes.setInt('AppbarColor',_appBarColor?.value??Colors.deepPurple.value);
+                                      prefes.setInt('PrimaryColor',_primaryColor?.value??Colors.deepPurple.value);
+                                      prefes.setBool('IsLightTheme',isDarkTheme??false);
+                                      prefes.setInt('TextColor',textColor?.value??Colors.black.value);
+                                      prefes.setDouble('ContrastLevel',_contrastLevel??0.5);
+                                      Navigator.of(context)
+                                        ..pop()
+                                        ..pop();
                                     }
                                   ),
                                 ));
@@ -316,7 +311,6 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
                             prefes.setInt('TextColor',textColor?.value??Colors.deepPurple.value);
                             prefes.setDouble('ContrastLevel',_contrastLevel??0.5);
                             Navigator.pop(context);
-                          
                           },
                           child: const Text('Apply')),
                     ],
@@ -325,6 +319,7 @@ class _CustomThemeBottomsheetState extends State<CustomThemeBottomsheet> {
               ),
             ),
           );
-        });
+        }
+      );
   }
 }

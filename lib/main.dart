@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/api/api_demo.dart';
+import 'package:flutter_demo/show_student_screen.dart';
+import 'package:flutter_demo/sql-light/add_employee_screen.dart';
 import 'package:flutter_demo/theme/custom_theme_bottomsheet.dart';
 import 'package:flutter_demo/cutom-widget_demo.dart';
 import 'package:flutter_demo/home_screen.dart';
@@ -14,7 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -38,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
   void getTheme()async{
-
+    
     SharedPreferences prefs = await SharedPreferences.getInstance();
     appbarColor = Color(prefs.getInt('AppbarColor')??Colors.deepPurple.value);
     primarycolor = Color(prefs.getInt('PrimaryColor')??Colors.deepPurple.value);
@@ -102,9 +104,12 @@ class _MyAppState extends State<MyApp> {
               '/streamBuilderDemoScreen': (context) => const StreamBuilderDemo(),
               '/themeDemoScreen': (context) => const ThemeDemo(),
               '/isolateDemoScreen': (context) => const IsolateDemoScreen(),
-              '/apiDemoScreen' : (context) => const ApiDemoScreen()
-            },
-          );
-        });
+              '/apiDemoScreen' : (context) => const ApiDemoScreen(),
+              '/showStudentScreen' : (context) => const ShowStudentScreen(),
+              '/addEmployeeScreen' : (context) => const AddEmployeeScreen(),
+          },
+        );
+      }
+    );
   }
 }
