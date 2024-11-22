@@ -22,36 +22,33 @@ class _WidgetsdemoState extends State<Widgetsdemo> {
           padding: const EdgeInsets.all(0),
           children: const [
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple
-              ),
+                decoration: BoxDecoration(color: Colors.deepPurple),
                 child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple
+                  decoration: BoxDecoration(color: Colors.deepPurple),
+                  accountName: Text("Siddharth"),
+                  accountEmail: Text("smakavana454@gmail.com"),
+                  currentAccountPictureSize: Size.square(40),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.amber,
+                    child: Text('S'),
                   ),
-                    accountName: Text("Siddharth"),
-                    accountEmail: Text("smakavana454@gmail.com"),
-                    currentAccountPictureSize: Size.square(40),
-                    currentAccountPicture:
-                        CircleAvatar(backgroundColor: Colors.amber,child: Text('S'),),
-                )
-              ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text("Profile"),
-              ),
-              ListTile(
-                leading: Icon(Icons.edit),
-                title: Text("edit"),
-              ),
-              ListTile(
-                leading: Icon(Icons.delete),
-                title: Text("delete"),
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("Setting"),
-              )
+                )),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Profile"),
+            ),
+            ListTile(
+              leading: Icon(Icons.edit),
+              title: Text("edit"),
+            ),
+            ListTile(
+              leading: Icon(Icons.delete),
+              title: Text("delete"),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text("Setting"),
+            )
           ],
         ),
       ),
@@ -117,43 +114,59 @@ class _WidgetsdemoState extends State<Widgetsdemo> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  titlePadding:const EdgeInsets.all(0),
+                  titlePadding: const EdgeInsets.all(0),
                   title: Container(
                     height: 100,
                     width: 100,
-                    decoration:const BoxDecoration(
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
-                      color: Colors.black
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(20)),
+                        color: Colors.black),
+                    child: const Icon(
+                      Icons.warning_rounded,
+                      color: Colors.white,
+                      size: 50,
                     ),
-                    child:const Icon(Icons.warning_rounded,color: Colors.white,size: 50,),
                   ),
-                  content: const Text("Do You Want To Recive The Recipt via Email?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,),textAlign: TextAlign.center,),
+                  content: const Text(
+                    "Do You Want To Recive The Recipt via Email?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                   actions: [
                     Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-
                         children: [
-
                           SizedBox(
                             width: double.infinity,
-                            child: ElevatedButton( 
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber
-                            ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text("Yes , I Do Want",style: TextStyle(color: Colors.white),)),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.amber),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text(
+                                  "Yes , I Do Want",
+                                  style: TextStyle(color: Colors.white),
+                                )),
                           ),
                           SizedBox(
                             width: double.infinity,
                             child: OutlinedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("No , T Dont Wnat To",style: TextStyle(color: Colors.black),)),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                "No , T Dont Wnat To",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
                           ),
                         ],
                       ),

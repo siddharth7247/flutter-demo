@@ -68,9 +68,12 @@ class _HomescreenState extends State<Homescreen> {
               ElevatedButton(onPressed: (){
                 Navigator.pushNamed(context, '/showStudentScreen');
               }, child: const Text('Model Class Demo')),
-               ElevatedButton(onPressed: (){
+              ElevatedButton(onPressed: (){
                 Navigator.pushNamed(context, '/addEmployeeScreen');
               }, child: const Text('Sql Light Demo')),
+              ElevatedButton(onPressed: (){
+                Navigator.pushNamed(context, '/hiveDemoScreen');
+              }, child: const Text('Hive Demo')),
             ],
           ),
         ),

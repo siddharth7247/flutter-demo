@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/api/api_demo.dart';
+import 'package:flutter_demo/hive/hive_demo_screen.dart';
 import 'package:flutter_demo/show_student_screen.dart';
 import 'package:flutter_demo/sql-light/add_employee_screen.dart';
 import 'package:flutter_demo/theme/custom_theme_bottomsheet.dart';
@@ -11,11 +12,15 @@ import 'package:flutter_demo/streams/stream_builder_demo.dart';
 import 'package:flutter_demo/tabbar_demo.dart';
 import 'package:flutter_demo/theme/theme_demo.dart';
 import 'package:flutter_demo/widgets_demo.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final documentDir = await getApplicationDocumentsDirectory();
+  await Hive.initFlutter(documentDir.path);
   runApp(const MyApp());
 }
 
@@ -107,6 +112,7 @@ class _MyAppState extends State<MyApp> {
               '/apiDemoScreen' : (context) => const ApiDemoScreen(),
               '/showStudentScreen' : (context) => const ShowStudentScreen(),
               '/addEmployeeScreen' : (context) => const AddEmployeeScreen(),
+              '/hiveDemoScreen' : (context) => const HiveDemoScreen(),
           },
         );
       }
