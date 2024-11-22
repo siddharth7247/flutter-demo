@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter_demo/models/employeeModel.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -41,8 +40,18 @@ class DatabaseService {
 
   Future<List<Employee>> getAllEmployee() async {
     final db = await database;
-    final data = await db.query(tableName);
-    List<Employee> empList = data.map((json) => Employee.fromJson(json)).toList();
+    final emp = await db.query(tableName);
+    List<Employee> empList = emp.map((json) => Employee.fromJson(json)).toList();
     return empList;
+  }
+
+  void updateEmployee(Employee employee)async{
+    final db = await database;
+    await db.update(tableName , where: 'id = ?', jsonDecode(jsonEncode(employee)),whereArgs: [employee.id]);
+  }
+
+  void deleteEmloyee(int id)async{
+    final db = await database;
+    await db.delete(tableName,where: 'id = ?',whereArgs: [id]); 
   }
 }

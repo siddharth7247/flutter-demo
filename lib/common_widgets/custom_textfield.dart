@@ -42,6 +42,7 @@ class CustomTextfield extends StatelessWidget {
           if(value == null || value.isEmpty){
             return 'please enter $validator';
           }
+          return null;
         },
         
         decoration: InputDecoration(
@@ -51,7 +52,7 @@ class CustomTextfield extends StatelessWidget {
           suffix: Icon(suffixIcons),
           border: const OutlineInputBorder(),
           focusedBorder: const OutlineInputBorder(
-            borderSide:BorderSide(color: Colors.amberAccent),
+            borderSide:BorderSide(color: Colors.deepPurple),
           )
         ),
       ),

@@ -38,10 +38,26 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
             return Card(
               elevation: 5,
               child: ListTile(
-                leading: CircleAvatar(child: Text((snapshot.data![index].id).toString()),),
+                leading: CircleAvatar(
+                  child: Text((index + 1).toString()),
+                ),
                 title: Text(snapshot.data![index].name),
                 subtitle: Text(snapshot.data![index].email),
-                trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
+                trailing: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _updateEmployeeButton(snapshot.data![index]),
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _databaseService
+                                .deleteEmloyee(snapshot.data![index].id!);
+                          });
+                        },
+                        icon: const Icon(Icons.delete)),
+                  ],
+                ),
               ),
             );
           },
@@ -82,7 +98,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   CustomTextfield(
                       controller: emailController,
                       hintText: 'Enter email',
-
                       icon: Icons.email),
                   CustomTextfield(
                       controller: addressController,
@@ -108,13 +123,10 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                             address: addressController.text.toString(),
                             phoneNo: int.parse(phoneController.text)));
 
-                        Navigator.pop(context);   
+                        Navigator.pop(context);
                         setState(() {
-                          nameController.clear();
-                          emailController.clear();
-                          phoneController.clear();
-                          addressController.clear();
-                        }); 
+                          clearController();
+                        });
                       },
                       child: const Text(
                         'Add Employee',
@@ -124,7 +136,116 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
               ),
             ),
           );
-        }
-      );
+        });
+  }
+
+  Widget _updateEmployeeButton(Employee employee) {
+    return IconButton(
+        onPressed: () {
+          nameController.text = employee.name;
+          emailController.text = employee.email;
+          addressController.text = employee.address;
+          phoneController.text = employee.phoneNo.toString();
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              titlePadding: const EdgeInsets.all(0),
+              title: Container(
+                  height: 80,
+                  width: 500,
+                  decoration: const BoxDecoration(
+                    color: Colors.deepPurple,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20)),
+                  ),
+                  child: const Icon(
+                    Icons.add_circle_outline_outlined,
+                    size: 50,
+                  )),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomTextfield(
+                      controller: nameController,
+                      hintText: 'Enter name',
+                      icon: Icons.person),
+                  CustomTextfield(
+                      controller: emailController,
+                      hintText: 'Enter Email',
+                      icon: Icons.email),
+                  CustomTextfield(
+                      controller: addressController,
+                      hintText: 'Enter Address',
+                      icon: Icons.location_on),
+                  CustomTextfield(
+                      controller: phoneController,
+                      hintText: 'Enter Phone no',
+                      icon: Icons.phone),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepPurple,
+                              padding: const EdgeInsets.all(10),
+                              minimumSize: const Size(130, 50)),
+                          onPressed: () {
+                            updateEmployee(Employee(
+                                id: employee.id,
+                                name: nameController.text,
+                                email: emailController.text,
+                                address: addressController.text,
+                                phoneNo: int.parse(phoneController.text)));
+                            Navigator.pop(context);
+                            setState(() {
+                              clearController();
+                            });
+                          },
+                          child: const Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepPurple,
+                              padding: const EdgeInsets.all(10),
+                              minimumSize: const Size(130, 50)),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            clearController();
+                          },
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.edit));
+  }
+
+  void updateEmployee(Employee employee) {
+    _databaseService.updateEmployee(Employee(
+      id: employee.id,
+      name: employee.name,
+      email: employee.email,
+      address: employee.address,
+      phoneNo: employee.phoneNo,
+    ));
+  }
+
+  void clearController() {
+    nameController.clear();
+    emailController.clear();
+    phoneController.clear();
+    addressController.clear();
   }
 }
