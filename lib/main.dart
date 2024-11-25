@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/api/api_demo.dart';
 import 'package:flutter_demo/hive/hive_demo_screen.dart';
+import 'package:flutter_demo/models/userModel.dart';
 import 'package:flutter_demo/show_student_screen.dart';
 import 'package:flutter_demo/sql-light/add_employee_screen.dart';
 import 'package:flutter_demo/theme/custom_theme_bottomsheet.dart';
@@ -21,6 +22,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final documentDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(documentDir.path);
+  Hive.registerAdapter(UserAdapter());
+  await Hive.openBox<User>('users');
   runApp(const MyApp());
 }
 

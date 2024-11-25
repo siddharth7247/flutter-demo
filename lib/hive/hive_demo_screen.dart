@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/common_widgets/custom_textfield.dart';
+import 'package:flutter_demo/models/userModel.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveDemoScreen extends StatefulWidget {
@@ -13,15 +16,12 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
   TextEditingController userController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  Box? empsBox;
+  late Box<User> userBox;
 
   @override
   void initState() {
-    Hive.openBox("Employee_Box").then((_box) {
-      setState(() {
-        empsBox = _box;
-      });
-    });
+    userBox = Hive.box<User>('users');
+    log("UserBox : ${userBox.name}");
     super.initState();
   }
 
@@ -30,7 +30,7 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Hive Database",
+          "Cart Details",
           style: TextStyle(
               fontFamily: 'Manrope', color: Colors.deepPurple.shade100),
         ),
@@ -41,20 +41,54 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
   }
 
   Widget _featchEmployee() {
-    if (empsBox == null) {
+    if (userBox == null) {
       return const CircularProgressIndicator();
     }
     return ValueListenableBuilder(
-      valueListenable: empsBox!.listenable(),
+      valueListenable: userBox.listenable(),
       builder: (context, box, widget) {
-        final empKeysList = box.keys.toList();
         return ListView.builder(
-          itemCount: empKeysList.length,
+          itemCount: userBox.length ?? 0,
           itemBuilder: (context, index) {
-           return ListTile(
-            title: Text(index.toString()),
-           );
-        },);
+            User? user = userBox.getAt(index);
+            var isFav = user?.isFaV;
+            return Card(
+              child: ListTile(
+                leading: IconButton(
+                    onPressed: () {
+                      if (isFav ?? false) {
+                        userBox.putAt(
+                            index,
+                            User(
+                                userName: user!.userName.toString(),
+                                email: user!.email.toString(),
+                                password: user.password.toString(),
+                                isFaV: false));
+                      } else {
+                        userBox.putAt(
+                            index,
+                            User(
+                                userName: user!.userName.toString(),
+                                email: user!.email.toString(),
+                                password: user.password.toString(),
+                                isFaV: true));
+                      }
+                    },
+                    icon: Icon(
+                      Icons.favorite,
+                      color: (isFav ?? false) ? Colors.red : Colors.grey,
+                    )),
+                title: Text(user!.userName.toString()),
+                subtitle: Text(user.password.toString()),
+                trailing: IconButton(
+                    onPressed: () {
+                      userBox.deleteAt(index);
+                    },
+                    icon: const Icon(Icons.delete)),
+              ),
+            );
+          },
+        );
       },
     );
   }
@@ -70,7 +104,7 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
               height: 400,
               decoration: const BoxDecoration(
                   color: Colors.white10,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   )),
@@ -89,7 +123,7 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
                           )),
                       child: Center(
                         child: Text(
-                          "Registration",
+                          "Product Details",
                           style: TextStyle(
                               fontFamily: 'Manrope',
                               fontSize: 25,
@@ -104,21 +138,21 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CustomTextfield(
                         controller: userController,
-                        hintText: 'Username',
+                        hintText: 'name',
                         icon: Icons.person),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CustomTextfield(
                         controller: emailController,
-                        hintText: 'Email',
+                        hintText: 'description',
                         icon: Icons.email),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CustomTextfield(
                         controller: passwordController,
-                        hintText: 'Password',
+                        hintText: 'price',
                         icon: Icons.enhanced_encryption_rounded),
                   ),
                   const SizedBox(
@@ -130,16 +164,17 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
                             horizontal: 50, vertical: 10),
                         backgroundColor: Colors.deepPurple),
                     onPressed: () async {
-                      var hiveBox = await Hive.openBox('Users');
-                      hiveBox.put('user1', 'Siddhart');
-                      debugPrint(
-                          "User from hive database : ${hiveBox.get('user1')}");
-                      debugPrint(
-                          "User from hive database index 1 : ${hiveBox.getAt(0)}");
-                      debugPrint("User from ${hiveBox.containsKey('user1')}");
+                      User user = User(
+                          userName: userController.text,
+                          email: emailController.text,
+                          password: passwordController.text.toString(),
+                          isFaV: false);
+                      await userBox.add(user);
+                      Navigator.pop(context);
+                      clear();
                     },
                     child: Text(
-                      "Register",
+                      "Add Product",
                       style: TextStyle(
                           fontFamily: 'Manrope',
                           color: Colors.deepPurple.shade100,
@@ -154,5 +189,11 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
       },
       child: const Icon(Icons.add),
     );
+  }
+
+  void clear() {
+    userController.clear();
+    passwordController.clear();
+    emailController.clear();
   }
 }
