@@ -23,6 +23,7 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
     userBox = Hive.box<User>('users');
     log("UserBox : ${userBox.name}");
     super.initState();
+
   }
 
   @override
@@ -58,20 +59,22 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
                     onPressed: () {
                       if (isFav ?? false) {
                         userBox.putAt(
-                            index,
-                            User(
-                                userName: user!.userName.toString(),
-                                email: user!.email.toString(),
-                                password: user.password.toString(),
-                                isFaV: false));
+                          index,
+                          User(
+                              userName: user!.userName.toString(),
+                              email: user.email.toString(),
+                              password: user.password.toString(),
+                              isFaV: false),
+                        );
                       } else {
                         userBox.putAt(
-                            index,
-                            User(
-                                userName: user!.userName.toString(),
-                                email: user!.email.toString(),
-                                password: user.password.toString(),
-                                isFaV: true));
+                          index,
+                          User(
+                              userName: user!.userName.toString(),
+                              email: user.email.toString(),
+                              password: user.password.toString(),
+                              isFaV: true),
+                        );
                       }
                     },
                     icon: Icon(

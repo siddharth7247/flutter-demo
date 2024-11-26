@@ -74,6 +74,9 @@ class _HomescreenState extends State<Homescreen> {
               ElevatedButton(onPressed: (){
                 Navigator.pushNamed(context, '/hiveDemoScreen');
               }, child: const Text('Hive Demo')),
+              ElevatedButton(onPressed: (){
+                Navigator.pushNamed(context, '/httpdioDemoScreen');
+              }, child: const Text('http-dio Demo')),
             ],
           ),
         ),

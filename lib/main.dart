@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/api/api_demo.dart';
+import 'package:flutter_demo/dio-http/dio_demo_screen.dart';
+import 'package:flutter_demo/dio-http/image_upload_demo.dart';
 import 'package:flutter_demo/hive/hive_demo_screen.dart';
 import 'package:flutter_demo/models/userModel.dart';
 import 'package:flutter_demo/show_student_screen.dart';
@@ -116,6 +118,7 @@ class _MyAppState extends State<MyApp> {
               '/showStudentScreen' : (context) => const ShowStudentScreen(),
               '/addEmployeeScreen' : (context) => const AddEmployeeScreen(),
               '/hiveDemoScreen' : (context) => const HiveDemoScreen(),
+              '/httpdioDemoScreen' : (context) => const ImageUploadDemo(),
           },
         );
       }
