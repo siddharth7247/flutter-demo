@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/animation/implicit_animation_demo.dart';
 import 'package:flutter_demo/api/api_demo.dart';
 import 'package:flutter_demo/dio-http/image_upload_demo.dart';
 import 'package:flutter_demo/hive/hive_demo_screen.dart';
@@ -118,6 +119,7 @@ class _MyAppState extends State<MyApp> {
               '/addEmployeeScreen' : (context) => const AddEmployeeScreen(),
               '/hiveDemoScreen' : (context) => const HiveDemoScreen(),
               '/httpdioDemoScreen' : (context) => const ImageUploadDemo(),
+              '/animation':(context) =>const ImplicitAnimationDemo(),
           },
         );
       }

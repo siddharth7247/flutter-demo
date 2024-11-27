@@ -16,6 +16,7 @@ class ImageUploadDemo extends StatefulWidget {
 class _ImageUploadDemoState extends State<ImageUploadDemo> {
   File? _image;
   String? _message;
+  int? _statusCode;
   TextEditingController subjectController = TextEditingController();
   TextEditingController deseController = TextEditingController();
   @override
@@ -61,58 +62,65 @@ class _ImageUploadDemoState extends State<ImageUploadDemo> {
                 onPressed: () async {
                   await uploadImage(subjectController.text.toString(),
                       deseController.text.toString());
-                  await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          titlePadding: const EdgeInsets.all(0),
-                          title: Container(
-                            height: 80,
-                            width: 80,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    topLeft: Radius.circular(20)),
-                                color: Colors.deepPurple),
-                            child: const Icon(
-                              Icons.warning_rounded,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                          ),
-                          content: Text(
-                            _message ?? "",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          actions: [
-                            Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.deepPurple),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text(
-                                          "Ok",
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                  ),
-                                ],
+                  if (_statusCode == 200 || _statusCode == 201) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            titlePadding: const EdgeInsets.all(0),
+                            title: Container(
+                              height: 80,
+                              width: 80,
+                              decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20)),
+                                  color: Colors.deepPurple),
+                              child: const Icon(
+                                Icons.warning_rounded,
+                                color: Colors.white,
+                                size: 50,
                               ),
                             ),
-                          ],
-                        );
-                      });
+                            content: Text(
+                              _message ?? "",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            actions: [
+                              Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Colors.deepPurple),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            "Ok",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        });
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(_message.toString()),backgroundColor: Colors.redAccent,));
+                  }
                   clear();
                 },
                 child: const Text("upload"),
@@ -132,23 +140,33 @@ class _ImageUploadDemoState extends State<ImageUploadDemo> {
     var request = http.MultipartRequest('POST', uri);
     request.headers["Authorization"] =
         'Bearer 867|MFcAVwhY40KictXXQLCy0Dlo6g0GSi4Ox00TDDCr6cda98af';
-    request.fields['subject'] = subject;
+    request.headers["Accept"] = 'application/json';
+    //request.fields['subject'] = subject;
     request.fields['description'] = description;
     request.files
         .add(await http.MultipartFile.fromPath('images[]', _image!.path));
     final streamResponce = await request.send();
-    try {
+
+    if (streamResponce.statusCode == 200) {
       log("Api Responce : ${streamResponce.statusCode}");
       var responce = await http.Response.fromStream(streamResponce);
       var data = responce.body;
       var jsonData = jsonDecode(data);
       message = jsonData['message'];
-      log("responce message : $message");
       setState(() {
+        _statusCode = responce.statusCode;
         _message = message;
       });
-    } catch (e) {
-      log("Exeception : $e");
+    } else {
+      var responce = await http.Response.fromStream(streamResponce);
+      var data = responce.body;
+      var jsonData = jsonDecode(data);
+      message = jsonData["meta"]['message'];
+      log("responce message else: $message");
+      setState(() {
+        _statusCode = responce.statusCode;
+        _message = message;
+      });
     }
   }
 

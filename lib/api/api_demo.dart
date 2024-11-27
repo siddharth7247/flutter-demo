@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/api/details_screen.dart';
 import 'package:http/http.dart' as http;
 
 class ApiDemoScreen extends StatefulWidget {
@@ -23,7 +24,10 @@ class _APiDemoScreenState extends State<ApiDemoScreen> {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              leading: CircleAvatar(backgroundImage: NetworkImage(users[index]['picture']['medium']),),
+              //leading: CircleAvatar(backgroundImage: NetworkImage(users[index]['picture']['medium']),),
+              leading: GestureDetector(onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder:(context) => DetailsScreen(imgUrl: users[index]['picture']['medium']),));
+              }, child: Hero(tag: users[index]['picture']['medium'], child: CircleAvatar(backgroundImage: NetworkImage(users[index]['picture']['medium']),))),
               title: Text(users[index]['name']['first']),
               subtitle: Text(users[index]['email']),
               trailing: (users[index]['gender'] == 'male') ? const Icon(Icons.male) : const Icon(Icons.female),
