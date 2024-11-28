@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/animation/explicit_animation_screen.dart';
 
 class ImplicitAnimationDemo extends StatefulWidget {
   const ImplicitAnimationDemo({super.key});
@@ -13,6 +14,9 @@ class _ExplicitAnimationDemoState extends State<ImplicitAnimationDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Animation'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,6 +78,8 @@ class _ExplicitAnimationDemoState extends State<ImplicitAnimationDemo> {
                 );
               },
             ),
+            const SizedBox(height: 10,),
+            ElevatedButton(onPressed : () => Navigator.push(context,MaterialPageRoute(builder: (context) => const ExplicitAnimationScreen(),)), child: const Text("Explicit animation"))
           ],
         ),
       ),

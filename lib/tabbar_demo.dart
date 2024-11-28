@@ -26,22 +26,22 @@ class _TabbarDemoState extends State<TabbarDemo> {
           toolbarHeight: 10,
           automaticallyImplyLeading: false,
           bottom: const TabBar(
-            indicatorColor: Colors.orange,
-            dividerColor: Colors.transparent,
-            tabs: [
-              Tab(
-                text: 'Bus-Meeting',
-              ),
-              Tab(
-                text: 'Connects',
-              ),
-              Tab(
-                text: 'Bus-Recived',
-              ),
-              Tab(
-                text: 'Testimonials',
-              )
-          ]),
+              indicatorColor: Colors.orange,
+              dividerColor: Colors.transparent,
+              tabs: [
+                Tab(
+                  text: 'Bus-Meeting',
+                ),
+                Tab(
+                  text: 'Connects',
+                ),
+                Tab(
+                  text: 'Bus-Recived',
+                ),
+                Tab(
+                  text: 'Testimonials',
+                )
+              ]),
         ),
         body: const TabBarView(children: [
           NestedTabbarDemo(),
@@ -78,7 +78,10 @@ class _TabbarDemoState extends State<TabbarDemo> {
           onPressed: () {},
           shape: const CircleBorder(),
           backgroundColor: Colors.blue,
-          child: const Icon(Icons.add,color: Colors.white,),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
       ),
     );

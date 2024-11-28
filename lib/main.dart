@@ -4,6 +4,7 @@ import 'package:flutter_demo/api/api_demo.dart';
 import 'package:flutter_demo/dio-http/image_upload_demo.dart';
 import 'package:flutter_demo/hive/hive_demo_screen.dart';
 import 'package:flutter_demo/models/userModel.dart';
+import 'package:flutter_demo/responsive_design/slidebar_bottomnavigation_screen.dart';
 import 'package:flutter_demo/show_student_screen.dart';
 import 'package:flutter_demo/sql-light/add_employee_screen.dart';
 import 'package:flutter_demo/theme/custom_theme_bottomsheet.dart';
@@ -120,6 +121,7 @@ class _MyAppState extends State<MyApp> {
               '/hiveDemoScreen' : (context) => const HiveDemoScreen(),
               '/httpdioDemoScreen' : (context) => const ImageUploadDemo(),
               '/animation':(context) =>const ImplicitAnimationDemo(),
+              '/responsiveDesingDemo':(context) =>  const SlidebarBottomnavigationScreen(),
           },
         );
       }
