@@ -11,8 +11,17 @@ class ApiDemoScreen extends StatefulWidget {
   State<ApiDemoScreen> createState() => _APiDemoScreenState();
 }
 
-class _APiDemoScreenState extends State<ApiDemoScreen> {
+class _APiDemoScreenState extends State<ApiDemoScreen> with SingleTickerProviderStateMixin{
   List<dynamic> users = [];
+  late AnimationController _controller;
+  late Animation<Offset> listSlideAnimation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this,duration: const Duration(seconds: 5));
+    listSlideAnimation = Tween<Offset>(begin: const Offset(-1, 0),end : Offset.zero).animate(_controller);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -22,15 +31,17 @@ class _APiDemoScreenState extends State<ApiDemoScreen> {
       body: ListView.builder(
         itemCount: users.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              //leading: CircleAvatar(backgroundImage: NetworkImage(users[index]['picture']['medium']),),
-              leading: GestureDetector(onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder:(context) => DetailsScreen(imgUrl: users[index]['picture']['medium']),));
-              }, child: Hero(tag: users[index]['picture']['medium'], child: CircleAvatar(backgroundImage: NetworkImage(users[index]['picture']['medium']),))),
-              title: Text(users[index]['name']['first']),
-              subtitle: Text(users[index]['email']),
-              trailing: (users[index]['gender'] == 'male') ? const Icon(Icons.male) : const Icon(Icons.female),
+          return SlideTransition(
+            position: listSlideAnimation,
+            child: Card(
+              child: ListTile(
+                leading: GestureDetector(onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder:(context) => DetailsScreen(imgUrl: users[index]['picture']['medium']),));
+                }, child: Hero(tag: users[index]['picture']['medium'], child: CircleAvatar(backgroundImage: NetworkImage(users[index]['picture']['medium']),))),
+                title: Text(users[index]['name']['first']),
+                subtitle: Text(users[index]['email']),
+                trailing: (users[index]['gender'] == 'male') ? const Icon(Icons.male) : const Icon(Icons.female),
+              ),
             ),
           );
         },),
@@ -40,11 +51,13 @@ class _APiDemoScreenState extends State<ApiDemoScreen> {
   void featchUsers()async{
     const url = 'https://randomuser.me/api/?results=50';
     final uri = Uri.parse(url);
+    
     final response = await http.get(uri);
     final body = response.body;
     final json = jsonDecode(body);
     setState(() {
       users = json['results'];
     });
+    _controller.forward();
   }
 }

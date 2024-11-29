@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/common_widgets/custom_button.dart';
 import 'package:flutter_demo/common_widgets/custom_textfield.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
-   PersonalDetailsScreen({super.key});
-  TextEditingController nameController = TextEditingController();
-  TextEditingController surnameControlelr = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phonecontroller = TextEditingController();
+  PersonalDetailsScreen({super.key});
+  TextEditingController uerNameController = TextEditingController();
+  TextEditingController feedBackController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +20,38 @@ class PersonalDetailsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Acedmic Details",
+                    "FeedBack",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),      
+                  ),
                   CustomTextfield(
-                      controller: nameController,
-                      hintText: 'Enter  class 10 %',
-                      icon: Icons.remove_red_eye),
-                  CustomTextfield(
-                      controller: nameController,
-                      hintText: 'Enter class 12 %',
-                      icon: Icons.mobile_friendly),
-                  CustomTextfield(
-                      controller: nameController,
-                      hintText: 'Enter Graduation %',
-                      icon: Icons.home_max),
-                  CustomButton(title: 'Submit', onTap: () {})
+                      controller: uerNameController,
+                      hintText: 'Enter UserName',
+                      icon: Icons.person),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      controller: feedBackController,
+                      maxLines: 5,
+                      decoration: const InputDecoration(
+                          hintText: 'Enter Your Feed back',
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          )),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Back"),
+                      ),
+                      ElevatedButton(
+                          onPressed: () {}, child: const Text('Submit'))
+                    ],
+                  )
                 ],
               ),
             ),

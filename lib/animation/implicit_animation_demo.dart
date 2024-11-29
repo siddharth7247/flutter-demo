@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/animation/explicit_animation_screen.dart';
+import 'package:flutter_demo/animation/custom_painter.dart';
+import 'package:flutter_demo/animation/login_form_animation.dart';
 
 class ImplicitAnimationDemo extends StatefulWidget {
   const ImplicitAnimationDemo({super.key});
@@ -78,8 +79,16 @@ class _ExplicitAnimationDemoState extends State<ImplicitAnimationDemo> {
                 );
               },
             ),
-            const SizedBox(height: 10,),
-            ElevatedButton(onPressed : () => Navigator.push(context,MaterialPageRoute(builder: (context) => const ExplicitAnimationScreen(),)), child: const Text("Explicit animation"))
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CustomPainterDemo(),
+                    )),
+                child: const Text("Explicit animation"))
           ],
         ),
       ),

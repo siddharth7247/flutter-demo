@@ -5,7 +5,7 @@ class CustomResponsiveContainer extends StatelessWidget {
   const CustomResponsiveContainer({super.key});
 
   @override
-  Widget build(BuildContext text) {
+  Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
         child: CustomContainer(),
