@@ -6,6 +6,8 @@ import 'package:flutter_demo/hive/hive_demo_screen.dart';
 import 'package:flutter_demo/models/userModel.dart';
 import 'package:flutter_demo/responsive_design/responsive_design_index.dart';
 import 'package:flutter_demo/show_student_screen.dart';
+import 'package:flutter_demo/slivers/sliver_appbar_demo.dart';
+import 'package:flutter_demo/slivers/sliver_demo.dart';
 import 'package:flutter_demo/sql-light/add_employee_screen.dart';
 import 'package:flutter_demo/theme/custom_theme_bottomsheet.dart';
 import 'package:flutter_demo/cutom-widget_demo.dart';
@@ -122,6 +124,7 @@ class _MyAppState extends State<MyApp> {
               '/httpdioDemoScreen' : (context) => const ImageUploadDemo(),
               '/animation':(context) =>const ImplicitAnimationDemo(),
               '/responsiveDesingDemo':(context) =>  const ResponsiveDesignIndex(),
+              '/sliversDemo' : (context) => SliverAppbarDemo(),
           },
         );
       }

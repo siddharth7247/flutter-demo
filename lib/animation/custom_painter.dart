@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 class CustomPainterDemo extends StatefulWidget {
@@ -16,20 +15,28 @@ class _CustomPainterState extends State<CustomPainterDemo>
 
   @override
   void initState() {
+        super.initState();
+
+
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 10));
     navBarAnimation = Tween<Offset>(
-            begin: const Offset(0, 650), end: const Offset(400, 650))
+            begin: const Offset(0, 500), end: const Offset(500, 800))
         .animate(
             CurvedAnimation(parent: animationController, curve: Curves.linear));
-    animationController.repeat();
-    super.initState();
+   // animationController.repeat();
   }
 
   @override
   Widget build(BuildContext context) {
+            debugPrint("width ${MediaQuery.of(context).size.width}");
+
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Custom Painter"),
+        backgroundColor: Colors.amberAccent,
+      ),
       body: Column(
         children: [
           Center(
@@ -58,18 +65,99 @@ class WavePainter extends CustomPainter {
     Paint paint = Paint()
       ..color = Colors.amberAccent
       ..strokeWidth = 1;
+    canvas.drawColor(Colors.blueAccent, ui.BlendMode.color);
+    // Path path = Path()
+    //   ..moveTo(0, 750)
+    //   ..lineTo(0, 850)
+    //   ..lineTo(500, 800)
+    //   ..lineTo(500, 750)
+    //   ..lineTo(240, 750)
+    //   ..quadraticBezierTo(200, 820, 150, 750)
+    //   ..lineTo(0, 750);
     Path path = Path()
-      ..moveTo(0, 500)
-      ..lineTo(0, 600)
-      ..lineTo(400, 600)
-      ..lineTo(400, 500)
-      ..lineTo(230, 500)
-      ..quadraticBezierTo(650 - curveOffset.dy, 570, curveOffset.dx + , 500)
-      ..lineTo(0, 500);
-    log("Offset dx = ${curveOffset.dx}");
-    log("Offset dy = ${curveOffset.dy}");
+      ..moveTo(0, 750)
+      ..lineTo(0, 850)
+      ..lineTo(500, 850)
+      ..lineTo(500, 750)
+      ..lineTo(266, 750)
+      ..quadraticBezierTo(245, 755, 230, 775)
+      ..quadraticBezierTo(206, 805, 180, 775)
+      ..quadraticBezierTo(166,755, 136, 750)
+      ..lineTo(0, 750);
+
+/// [working code]
+      // ..quadraticBezierTo(245, 755, 230, 775)
+      // ..quadraticBezierTo(206, 805, 180, 775)
+      // ..quadraticBezierTo(166,755, 136, 750)
 
     canvas.drawPath(path, paint);
+    canvas.drawCircle(
+        const Offset(206, 740), 30, Paint()..color = Colors.green);
+
+    const iconAdd = Icons.add;
+    var builder = ui.ParagraphBuilder(
+      ui.ParagraphStyle(
+        fontFamily: iconAdd.fontFamily,
+        fontSize: 40,
+      ),
+    )..addText(String.fromCharCode(iconAdd.codePoint));
+    var para = builder.build();
+    para.layout(const ui.ParagraphConstraints(width: 5000));
+    canvas.drawParagraph(para, const Offset(186, 720));
+
+    const iconHome = Icons.home;
+    builder = ui.ParagraphBuilder(
+      ui.ParagraphStyle(
+        fontFamily: iconHome.fontFamily,
+        fontSize: 40,
+      ),
+    )..addText(String.fromCharCode(iconHome.codePoint));
+    para = builder.build();
+    para.layout(const ui.ParagraphConstraints(width: 5000));
+    canvas.drawParagraph(para, const Offset(60, 750));
+
+    const iconCart = Icons.card_travel;
+    builder = ui.ParagraphBuilder(
+      ui.ParagraphStyle(
+        fontFamily: iconCart.fontFamily,
+        fontSize: 40,
+      ),
+    )..addText(String.fromCharCode(iconCart.codePoint));
+    para = builder.build();
+    para.layout(const ui.ParagraphConstraints(width: 5000));
+    canvas.drawParagraph(para, const Offset(300, 750));
+
+    const textStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 15,
+    );
+    const homeTextSpan = TextSpan(
+      text: 'home',
+      style: textStyle,
+    );
+    final homePainter = TextPainter(
+      text: homeTextSpan,
+      textDirection: TextDirection.ltr,
+    );
+    homePainter.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    homePainter.paint(canvas, const Offset(60, 785));
+
+    const purchesTextSpan = TextSpan(
+      text: 'purches',
+      style: textStyle,
+    );
+    final purchesPainter = TextPainter(
+      text: purchesTextSpan,
+      textDirection: TextDirection.ltr,
+    );
+    purchesPainter.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    purchesPainter.paint(canvas, const Offset(295, 785));
   }
 
   @override
