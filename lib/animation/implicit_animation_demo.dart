@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/animation/custom_painter.dart';
-import 'package:flutter_demo/animation/login_form_animation.dart';
 
 class ImplicitAnimationDemo extends StatefulWidget {
   const ImplicitAnimationDemo({super.key});

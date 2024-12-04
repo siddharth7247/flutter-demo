@@ -24,7 +24,7 @@ class _CustomPainterState extends State<CustomPainterDemo>
             begin: const Offset(0, 500), end: const Offset(500, 800))
         .animate(
             CurvedAnimation(parent: animationController, curve: Curves.linear));
-   // animationController.repeat();
+    animationController.repeat();
   }
 
   @override
@@ -92,7 +92,7 @@ class WavePainter extends CustomPainter {
 
     canvas.drawPath(path, paint);
     canvas.drawCircle(
-        const Offset(206, 740), 30, Paint()..color = Colors.green);
+        curveOffset, 30, Paint()..color = Colors.green);
 
     const iconAdd = Icons.add;
     var builder = ui.ParagraphBuilder(

@@ -53,11 +53,12 @@ class AdaptiveFormScreen extends StatelessWidget {
                         controller: feedBackController,
                         maxLines: 5,
                         decoration: const InputDecoration(
-                            hintText: 'Enter Your Feed back',
-                            border: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.deepPurple),
-                            )),
+                          hintText: 'Enter Your Feed back',
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
+                        ),
                       ),
                     ),
                     CustomButton(title: 'Submit', onTap: () {})

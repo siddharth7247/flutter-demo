@@ -10,7 +10,7 @@ class SliverAppbarDemo extends StatelessWidget {
         slivers: [
            const SliverAppBar(
             snap: false,
-            pinned: false,
+            pinned: true,
             floating: false,
             expandedHeight: 250,
             

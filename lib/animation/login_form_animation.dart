@@ -18,10 +18,14 @@ class _LoginFormAnimationState extends State<LoginFormAnimation>
   TextEditingController nameController = TextEditingController();
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5));
     logoFadeAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
-    slideAnimation = Tween<Offset>(begin: const Offset(0, -1), end: Offset.zero).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
-    btnSlideAnimation = Tween<Offset>(begin: const Offset(-1, 0),end: Offset.zero).animate(_controller);    
+    slideAnimation = Tween<Offset>(begin: const Offset(0, -1), end: Offset.zero)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
+    btnSlideAnimation =
+        Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
+            .animate(_controller);
     _controller.forward();
     super.initState();
   }
@@ -55,11 +59,13 @@ class _LoginFormAnimationState extends State<LoginFormAnimation>
                 ],
               ),
             ),
-            SlideTransition(position: btnSlideAnimation,child: CustomButton(title: "Login", onTap: () {}))
+            SlideTransition(
+              position: btnSlideAnimation,
+              child: CustomButton(title: "Login", onTap: () {}),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
