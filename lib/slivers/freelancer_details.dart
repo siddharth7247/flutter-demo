@@ -1,6 +1,4 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class FreelancerDetails extends StatelessWidget {
   const FreelancerDetails({super.key});
@@ -12,63 +10,48 @@ class FreelancerDetails extends StatelessWidget {
         backgroundColor: Colors.grey,
         body: CustomScrollView(
           slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: ProfilePageHeader(maxExtent: 200, minExtent: 70),  
+            SliverAppBar.large(
+              expandedHeight: 300,
+              centerTitle: true,
+              backgroundColor: Colors.black,
+              title: const Text(
+                'Freelancer',
+                style: TextStyle(color: Colors.white, fontSize: 25),
+              ),
+              flexibleSpace:
+                  FlexibleSpaceBar(background: ExpandenAppbarContent()),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.message,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notification_add,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
+            SliverPersistentHeader(
+            pinned: true,
+            delegate: _MySliverPersistentHeaderDelegate(),
+          ),
+
             const SliverFillRemaining(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.all(3.0),
-                          child: Card(
-                            color: Colors.black,
-                            child: ListTile(
-                              title: Text(
-                                "0",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                "Overall Jobs",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.all(3.0),
-                          child: Card(
-                            color: Colors.black,
-                            child: ListTile(
-                              title: Text(
-                                "0",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                "Overall Jobs",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Padding(
                     padding: EdgeInsets.all(3.0),
                     child: Card(
@@ -132,93 +115,23 @@ class FreelancerDetails extends StatelessWidget {
   }
 }
 
-class ProfilePageHeader extends SliverPersistentHeaderDelegate {
-  ProfilePageHeader({
-    required this.minExtent,
-    required this.maxExtent,
-  });
+class ExpandenAppbarContent extends StatelessWidget {
   @override
-  final double minExtent;
-  @override
-  final double maxExtent;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-         shrinkOffset >= minExtent ? Container(
-          color: Colors.black,
-         ): Image.asset(
-           'assets/images/bg.jpeg',
-           fit: BoxFit.cover,
+        Image.asset(
+          "assets/images/bg.jpeg",
+          fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(
-                width: 100,
-              ),
-              Opacity(
-                opacity: 0.0 + math.max(0.0, shrinkOffset) / maxExtent,
-                child: const Text(
-                  'Freelancer',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
-              ),
-              const SizedBox(
-                width: 40,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.comment,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.bookmark,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.transparent, Colors.black54],
-              stops: [0.5, 1.0],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              tileMode: TileMode.repeated,
-            ),
-          ),
-        ),
-        Positioned(
+        const Positioned(
           left: 170,
           right: 50,
           top: 45,
           child: Text(
             'Profile',
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.white.withOpacity(titleOpacity(shrinkOffset)),
-            ),
+            style: TextStyle(fontSize: 20.0, color: Colors.white),
           ),
         ),
         Positioned(
@@ -235,7 +148,7 @@ class ProfilePageHeader extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        Positioned(
+        const Positioned(
           left: 145,
           right: 50,
           top: 190,
@@ -243,35 +156,88 @@ class ProfilePageHeader extends SliverPersistentHeaderDelegate {
             'Freelancer',
             style: TextStyle(
               fontSize: 25.0,
-              color: Colors.white.withOpacity(titleOpacity(shrinkOffset)),
+              color: Colors.white,
             ),
           ),
         ),
-        Positioned(
+        const Positioned(
           left: 170,
           right: 50,
           top: 220,
           child: Text(
             'AED 30/hr',
-            style: TextStyle(
-              fontSize: 15.0,
-              color: Colors.white.withOpacity(titleOpacity(shrinkOffset)),
-            ),
+            style: TextStyle(fontSize: 15.0, color: Colors.white),
           ),
         ),
       ],
     );
   }
+}
 
-  double titleOpacity(double shrinkOffset) {
-    return 1.0 - math.max(0.0, shrinkOffset) / maxExtent;
+class _MySliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(3.0),
+                child: Card(
+                  color: Colors.black,
+                  child: ListTile(
+                    title: Text(
+                      "0",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      "Overall Jobs",
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(3.0),
+                child: Card(
+                  color: Colors.black,
+                  child: ListTile(
+                    title: Text(
+                      "0",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      "Overall Jobs",
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
+  double get maxExtent => 90.0;
 
   @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration => null;
+  double get minExtent => 90.0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
 }

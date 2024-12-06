@@ -53,26 +53,31 @@ class _HomescreenState extends State<Homescreen> {
                     },
                     child: const Text("Signup App")),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/tabBarDemoScree');
-                    },
-                    child: const Text("Tabbar,Botton Navigation demo")),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/tabBarDemoScree');
+                  },
+                  child: const Text("Tabbar,Botton Navigation demo"),
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/customWidgetDemoScreen');
-                    },
-                    child: const Text("Custom Widget,Form valiadtion demo")),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/customWidgetDemoScreen');
+                  },
+                  child: const Text("Custom Widget,Form valiadtion demo"),
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/listviewDemoScreen');
-                    },
-                    child: const Text("ListView demo")),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/listviewDemoScreen');
+                  },
+                  child: const Text("ListView demo"),
+                ),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const GridviewDemo()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const GridviewDemo(),
+                        ),
+                      );
                     },
                     child: const Text("Gridview Demo")),
                 ElevatedButton(
@@ -96,40 +101,53 @@ class _HomescreenState extends State<Homescreen> {
                     },
                     child: const Text('Api demo')),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/showStudentScreen');
-                    },
-                    child: const Text('Model Class Demo')),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/showStudentScreen');
+                  },
+                  child: const Text('Model Class Demo'),
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/addEmployeeScreen');
-                    },
-                    child: const Text('Sql Light Demo')),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/addEmployeeScreen');
+                  },
+                  child: const Text('Sql Light Demo'),
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/hiveDemoScreen');
-                    },
-                    child: const Text('Hive Demo')),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/hiveDemoScreen');
+                  },
+                  child: const Text('Hive Demo'),
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/httpdioDemoScreen');
-                    },
-                    child: const Text('http-dio Demo')),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/httpdioDemoScreen');
+                  },
+                  child: const Text('http-dio Demo'),
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/animation');
-                    },
-                    child: const Text('Animation demo')),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/animation');
+                  },
+                  child: const Text('Animation demo'),
+                ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/responsiveDesingDemo');
-                    },
-                    child: const Text('Responsive Design demo')),
-                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/sliversDemo');
-                    },
-                    child: const Text('Slivers Demo')),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/responsiveDesingDemo');
+                  },
+                  child: const Text('Responsive Design demo'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/sliversDemo');
+                  },
+                  child: const Text('Slivers Demo'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/blocDemo');
+                  },
+                  child: const Text('Bloc Demo'),
+                ),
               ],
             ),
           ),

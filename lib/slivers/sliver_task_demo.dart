@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-import 'package:flutter/rendering.dart';
 import 'package:flutter_demo/slivers/freelancer_details.dart';
 
 class SliverTaskDemo extends StatefulWidget {
@@ -12,46 +10,48 @@ class SliverTaskDemo extends StatefulWidget {
 }
 
 class _SliverTaskDemoState extends State<SliverTaskDemo> {
-  late ScrollController _scrollController;
-  static const expandedHeight = 300.0;
-  Color _textColor = Colors.white;
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController()
-      ..addListener(() {
-        setState(() {});
-      });
+  final GlobalKey<SliverAnimatedListState> listKey = GlobalKey();
+  final List<String> projectList = ['project 1', 'project 2', 'project 3', 'project 4','project 5','project 6','project 7','project 8','project 10'];
+
+  void addItem() {
+    final index = projectList.length;
+    projectList.add('project ${index + 1}');
+    listKey.currentState?.insertItem(index);
   }
 
-  bool get _isAppBarExpanded {
-    return _scrollController.hasClients &&
-        _scrollController.offset > expandedHeight - kToolbarHeight;
+  void removeItem(int index) {
+    if (projectList.isEmpty) return;
+    final removedItem = projectList.removeAt(index);
+    listKey.currentState?.removeItem(
+      index,
+      (context, animation) => FadeTransition(
+        opacity: animation,
+        child: ListTile(
+          title: Text(removedItem),
+        ),
+      ),
+    );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.black,
       body: CustomScrollView(
-        controller: _scrollController,
         slivers: [
-          SliverAppBar(
-            title: _isAppBarExpanded
-                ? const CupertinoSearchTextField(
-                    padding: EdgeInsets.all(10),
-                    backgroundColor: Colors.white24,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  )
-                : null,
+          SliverAppBar.large(
+            title: const CupertinoSearchTextField(
+              padding: EdgeInsets.all(10),
+              backgroundColor: Colors.white24,
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
             leading: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Image.asset('assets/images/india-flag-icon.png'),
             ),
-            expandedHeight: expandedHeight,
+            expandedHeight: 300,
             centerTitle: false,
             flexibleSpace:
                 FlexibleSpaceBar(background: ExpandenAppbarContent()),
@@ -309,6 +309,27 @@ class _SliverTaskDemoState extends State<SliverTaskDemo> {
               childCount: 20,
             ),
           ),
+          SliverAnimatedList(
+            key: listKey,
+            initialItemCount: projectList.length,
+            itemBuilder: (context, index, animation) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: ListTile(
+                      tileColor: Colors.black,
+                      title: Text(projectList[index],style: const TextStyle(color: Colors.white),),
+                      trailing: IconButton(onPressed: (){
+                        removeItem(index);
+                      }, icon:const Icon(Icons.delete)),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -364,7 +385,9 @@ class _SliverTaskDemoState extends State<SliverTaskDemo> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                addItem();
+              },
               icon: const Icon(
                 Icons.person,
                 color: Colors.grey,
@@ -430,155 +453,4 @@ class ExpandenAppbarContent extends StatelessWidget {
       ],
     );
   }
-}
-
-class ProfilePageHeader extends SliverPersistentHeaderDelegate {
-  ProfilePageHeader({
-    required this.minExtent,
-    required this.maxExtent,
-  });
-  @override
-  final double minExtent;
-  @override
-  final double maxExtent;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        shrinkOffset >= minExtent
-            ? Container(
-                color: Colors.black,
-              )
-            : Image.asset(
-                'assets/images/bg.jpeg',
-                fit: BoxFit.cover,
-              ),
-        Positioned(
-          top: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                width: 15,
-              ),
-              SizedBox(
-                  height: 40,
-                  child: Image.asset('assets/images/india-flag-icon.png')),
-              const SizedBox(
-                width: 20,
-              ),
-              Opacity(
-                opacity: 0.0 + math.max(0.0, shrinkOffset) / maxExtent,
-                child: const SizedBox(
-                  height: 45,
-                  width: 200,
-                  child: CupertinoSearchTextField(
-                    padding: EdgeInsets.all(0),
-                    backgroundColor: Colors.white24,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white24),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.flag,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white24),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.notification_add,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.transparent, Colors.black54],
-              stops: [0.5, 1.0],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              tileMode: TileMode.repeated,
-            ),
-          ),
-        ),
-        Positioned(
-          left: 30,
-          right: 50,
-          top: 120,
-          child: Text(
-            'Good Morning Employeers!!',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white.withOpacity(titleOpacity(shrinkOffset)),
-            ),
-          ),
-        ),
-        Positioned(
-          left: 30,
-          right: 50,
-          top: 150,
-          child: Text(
-            'Do You Need Help ?',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white.withOpacity(titleOpacity(shrinkOffset)),
-            ),
-          ),
-        ),
-        const Positioned(
-          left: 20,
-          right: 20,
-          top: 190,
-          child: CupertinoSearchTextField(
-            padding: EdgeInsets.all(15),
-            backgroundColor: Colors.white24,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-        ),
-      ],
-    );
-  }
-
-  double titleOpacity(double shrinkOffset) {
-    return 1.0 - math.max(0.0, shrinkOffset) / maxExtent;
-  }
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-
-  @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration => null;
 }

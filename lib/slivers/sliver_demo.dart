@@ -35,6 +35,7 @@ class _MyCustomScrollViewState extends State<MyCustomScrollView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(title: const Text('CustomScrollView Example')),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
