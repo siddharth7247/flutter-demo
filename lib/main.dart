@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/animation/implicit_animation_demo.dart';
 import 'package:flutter_demo/api/api_demo.dart';
 import 'package:flutter_demo/bloc/counter%20app/counter%20ui/counter_screen.dart';
+import 'package:flutter_demo/cubit/screens/user_details_cubit_screen.dart';
 import 'package:flutter_demo/dio-http/image_upload_demo.dart';
 import 'package:flutter_demo/hive/hive_demo_screen.dart';
 import 'package:flutter_demo/models/userModel.dart';
@@ -96,7 +97,7 @@ class _MyAppState extends State<MyApp> {
                   titleLarge:
                       TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
                   bodyMedium:
-                      TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
               appBarTheme: AppBarTheme(
                 backgroundColor: snapshot.data?.appbarColor,
                 centerTitle:
@@ -126,6 +127,7 @@ class _MyAppState extends State<MyApp> {
             '/responsiveDesingDemo': (context) => const ResponsiveDesignIndex(),
             '/sliversDemo': (context) => const SliverTaskDemo(),
             '/blocDemo':(context) => const CounterScreen(),
+            '/cubitDemo':(context) => const UserDetailsCubitScreen(),
           },
         );
       },

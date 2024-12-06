@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_demo/bloc/counter%20app/bloc/counter_bloc.dart';
+import 'package:flutter_demo/common_widgets/custom_snakbar.dart';
 
 class CounterScreen extends StatefulWidget {
   const CounterScreen({super.key});
@@ -63,7 +64,7 @@ class _CounterScreenState extends State<CounterScreen> {
                         counterBloc.add(DecrementEvent());
                       }
                     },
-                    icon: const Icon(Icons.minimize),
+                    icon: const Icon(Icons.remove),
                   ),
                 ),
               ],
@@ -73,7 +74,7 @@ class _CounterScreenState extends State<CounterScreen> {
               listener: (context, state) {
                 if (state is ShowSnakbarActionState) {
                   if (counterBloc.counter >= 10) {
-                    Snakbar.show(context, "Reached Maximum Limit", true);
+                    Snakbar.show(context, "Reached Maximum Limit", false);
                   } else {
                     Snakbar.show(context, "Reached Minimum Limit", false);
                   }
@@ -97,16 +98,3 @@ Widget _counter(int counter) {
   );
 }
 
-class Snakbar {
-  final String message;
-  final bool isError;
-  Snakbar({required this.message, required this.isError});
-  static show(BuildContext context, String message, bool isError) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: isError ? Colors.red.shade400 : Colors.green.shade400,
-      ),
-    );
-  }
-}

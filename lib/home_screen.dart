@@ -148,6 +148,12 @@ class _HomescreenState extends State<Homescreen> {
                   },
                   child: const Text('Bloc Demo'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cubitDemo');
+                  },
+                  child: const Text('Cubit Demo'),
+                ),
               ],
             ),
           ),
