@@ -29,17 +29,14 @@ class _CounterScreenState extends State<CounterScreen> {
                 CircleAvatar(
                   child: IconButton(
                     onPressed: () {
-                      if (counterBloc.counter >= 10) {
-                        counterBloc.add(ShowSnakbarEvent());
-                        counterBloc.add(CurrentEvent());
-                      } else {
-                        counterBloc.add(IncrementEvent());
-                      }
+                      counterBloc.add(
+                        IncrementEvent(),
+                      );
                     },
                     icon: const Icon(Icons.add),
                   ),
                 ),
-                BlocBuilder<CounterBloc, CounterState>(
+                BlocConsumer<CounterBloc, CounterState>(
                   bloc: counterBloc,
                   builder: (context, state) {
                     if (state is CounterInitial) {
@@ -47,41 +44,32 @@ class _CounterScreenState extends State<CounterScreen> {
                     }
                     if (state is UpdateValueState) {
                       return _counter(state.value);
+                    } else {
+                      return _counter(counterBloc.counter);
                     }
-                    if(state is CurrentValueState){
-                      return _counter(state.value);
+                  },
+                  listener: (BuildContext context, CounterState state) {
+                    if (state is ShowSnakbarActionState) {
+                      if (counterBloc.counter >= 10) {
+                        Snakbar.show(context, "Reached Maximum Limit", false);
+                      } else {
+                        Snakbar.show(context, "Reached Minimum Limit", false);
+                      }
                     }
-                    return Container();
                   },
                 ),
                 CircleAvatar(
                   child: IconButton(
                     onPressed: () {
-                      if (counterBloc.counter <= 0) {
-                        counterBloc.add(ShowSnakbarEvent());
-                        counterBloc.add(CurrentEvent());
-                      } else {
-                        counterBloc.add(DecrementEvent());
-                      }
+                      counterBloc.add(
+                        DecrementEvent(),
+                      );
                     },
                     icon: const Icon(Icons.remove),
                   ),
                 ),
               ],
             ),
-            BlocListener<CounterBloc, CounterState>(
-              bloc: counterBloc,
-              listener: (context, state) {
-                if (state is ShowSnakbarActionState) {
-                  if (counterBloc.counter >= 10) {
-                    Snakbar.show(context, "Reached Maximum Limit", false);
-                  } else {
-                    Snakbar.show(context, "Reached Minimum Limit", false);
-                  }
-                }
-              },
-              child: Container(),
-            )
           ],
         ),
       ),
@@ -97,4 +85,3 @@ Widget _counter(int counter) {
     ),
   );
 }
-

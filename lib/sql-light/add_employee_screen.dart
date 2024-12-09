@@ -68,75 +68,77 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
 
   Widget _addEmployeeButton() {
     return FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          _databaseService.getAllEmployee();
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              titlePadding: const EdgeInsets.all(0),
-              title: Container(
-                  height: 80,
-                  width: 500,
-                  decoration: const BoxDecoration(
-                    color: Colors.deepPurple,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20)),
-                  ),
-                  child: const Icon(
-                    Icons.add_circle_outline_outlined,
-                    size: 50,
-                  )),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomTextfield(
-                      controller: nameController,
-                      hintText: 'Enter name',
-                      icon: Icons.person),
-                  CustomTextfield(
-                      controller: emailController,
-                      hintText: 'Enter email',
-                      icon: Icons.email),
-                  CustomTextfield(
-                      controller: addressController,
-                      hintText: 'Enter address',
-                      icon: Icons.location_on),
-                  CustomTextfield(
-                      controller: phoneController,
-                      hintText: 'Enter mobile no',
-                      icon: Icons.phone),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurple,
-                          padding: const EdgeInsets.all(10),
-                          minimumSize: const Size(200, 50)),
-                      onPressed: () {
-                        _databaseService.addEmployee(Employee(
-                            id: null,
-                            name: nameController.text.toString(),
-                            email: emailController.text.toString(),
-                            address: addressController.text.toString(),
-                            phoneNo: int.parse(phoneController.text)));
+      child: const Icon(Icons.add),
+      onPressed: () {
+        _databaseService.getAllEmployee();
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            titlePadding: const EdgeInsets.all(0),
+            title: Container(
+                height: 80,
+                width: 500,
+                decoration: const BoxDecoration(
+                  color: Colors.deepPurple,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20)),
+                ),
+                child: const Icon(
+                  Icons.add_circle_outline_outlined,
+                  size: 50,
+                )),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomTextfield(
+                    controller: nameController,
+                    hintText: 'Enter name',
+                    icon: Icons.person),
+                CustomTextfield(
+                    controller: emailController,
+                    hintText: 'Enter email',
+                    icon: Icons.email),
+                CustomTextfield(
+                    controller: addressController,
+                    hintText: 'Enter address',
+                    icon: Icons.location_on),
+                CustomTextfield(
+                    controller: phoneController,
+                    hintText: 'Enter mobile no',
+                    icon: Icons.phone),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      padding: const EdgeInsets.all(10),
+                      minimumSize: const Size(200, 50)),
+                  onPressed: () {
+                    _databaseService.addEmployee(Employee(
+                        id: null,
+                        name: nameController.text.toString(),
+                        email: emailController.text.toString(),
+                        address: addressController.text.toString(),
+                        phoneNo: int.parse(phoneController.text)));
 
-                        Navigator.pop(context);
-                        setState(() {
-                          clearController();
-                        });
-                      },
-                      child: const Text(
-                        'Add Employee',
-                        style: TextStyle(color: Colors.white),
-                      ))
-                ],
-              ),
+                    Navigator.pop(context);
+                    setState(() {
+                      clearController();
+                    });
+                  },
+                  child: const Text(
+                    'Add Employee',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   Widget _updateEmployeeButton(Employee employee) {

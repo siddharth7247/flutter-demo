@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/common_widgets/custom_textfield.dart';
 import 'package:flutter_demo/models/userModel.dart';
@@ -173,6 +172,7 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
                           password: passwordController.text.toString(),
                           isFaV: false);
                       await userBox.add(user);
+                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       clear();
                     },

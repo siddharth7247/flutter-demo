@@ -48,8 +48,7 @@ class _UserDetailsCubitScreenState extends State<UserDetailsCubitScreen> {
                               children: [
                                 Text("Name : ${state.userList[index].name}"),
                                 Text("Email : ${state.userList[index].email}"),
-                                Text(
-                                    "Address : ${state.userList[index].address.city} - ${state.userList[index].address.zipcode}"),
+                                Text("Address : ${state.userList[index].address.city} - ${state.userList[index].address.zipcode}"),
                               ],
                             ),
                           ),

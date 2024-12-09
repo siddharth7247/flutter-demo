@@ -64,62 +64,64 @@ class _ImageUploadDemoState extends State<ImageUploadDemo> {
                       deseController.text.toString());
                   if (_statusCode == 200 || _statusCode == 201) {
                     showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            titlePadding: const EdgeInsets.all(0),
-                            title: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(20),
-                                      topLeft: Radius.circular(20)),
-                                  color: Colors.deepPurple),
-                              child: const Icon(
-                                Icons.warning_rounded,
-                                color: Colors.white,
-                                size: 50,
-                              ),
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          titlePadding: const EdgeInsets.all(0),
+                          title: Container(
+                            height: 80,
+                            width: 80,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20)),
+                                color: Colors.deepPurple),
+                            child: const Icon(
+                              Icons.warning_rounded,
+                              color: Colors.white,
+                              size: 50,
                             ),
-                            content: Text(
-                              _message ?? "",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              ),
-                              textAlign: TextAlign.center,
+                          ),
+                          content: Text(
+                            _message ?? "",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
                             ),
-                            actions: [
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Colors.deepPurple),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text(
-                                            "Ok",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )),
+                            textAlign: TextAlign.center,
+                          ),
+                          actions: [
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.deepPurple),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text(
+                                        "Ok",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          );
-                        });
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(_message.toString()),backgroundColor: Colors.redAccent,));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(_message.toString()),
+                      backgroundColor: Colors.redAccent,
+                    ));
                   }
                   clear();
                 },
@@ -138,13 +140,10 @@ class _ImageUploadDemoState extends State<ImageUploadDemo> {
     final uri = Uri.parse(url);
     late String message;
     var request = http.MultipartRequest('POST', uri);
-    request.headers["Authorization"] =
-        'Bearer 867|MFcAVwhY40KictXXQLCy0Dlo6g0GSi4Ox00TDDCr6cda98af';
+    request.headers["Authorization"] = 'Bearer 867|MFcAVwhY40KictXXQLCy0Dlo6g0GSi4Ox00TDDCr6cda98af';
     request.headers["Accept"] = 'application/json';
-    //request.fields['subject'] = subject;
     request.fields['description'] = description;
-    request.files
-        .add(await http.MultipartFile.fromPath('images[]', _image!.path));
+    request.files.add(await http.MultipartFile.fromPath('images[]', _image!.path));
     final streamResponce = await request.send();
 
     if (streamResponce.statusCode == 200) {
