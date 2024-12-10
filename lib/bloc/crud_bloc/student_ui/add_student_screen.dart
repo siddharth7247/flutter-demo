@@ -186,7 +186,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
             if (state is StudentInitial) {
               return const Center(child: Text("Nothing to Show"));
             }
-            return const Text("Nothing to show");
+            return const Text("Something Went Wrong");
           },
         ),
         floatingActionButton: BlocBuilder<StudentBloc, StudentState>(

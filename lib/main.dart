@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/animation/implicit_animation_demo.dart';
 import 'package:flutter_demo/api/api_demo.dart';
+import 'package:flutter_demo/app_lifecycle/applife_cycle_demo.dart';
 import 'package:flutter_demo/bloc/bloc_index.dart';
 import 'package:flutter_demo/cubit/screens/user_details_cubit_screen.dart';
 import 'package:flutter_demo/dio-http/image_upload_demo.dart';
@@ -128,6 +129,7 @@ class _MyAppState extends State<MyApp> {
             '/sliversDemo': (context) => const SliverTaskDemo(),
             '/blocDemo':(context) => const BlocIndex(),
             '/cubitDemo':(context) => const UserDetailsCubitScreen(),
+            '/appLifeCycleDemo' :(context) => const ApplifeCycleDemo()
           },
         );
       },

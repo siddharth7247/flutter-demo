@@ -16,8 +16,6 @@ class _CustomPainterState extends State<CustomPainterDemo>
   @override
   void initState() {
         super.initState();
-
-
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 10));
     navBarAnimation = Tween<Offset>(

@@ -154,6 +154,12 @@ class _HomescreenState extends State<Homescreen> {
                   },
                   child: const Text('Cubit Demo'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/appLifeCycleDemo');
+                  },
+                  child: const Text('Applife Cycle Demo'),
+                ),
               ],
             ),
           ),
