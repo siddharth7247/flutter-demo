@@ -160,6 +160,18 @@ class _HomescreenState extends State<Homescreen> {
                   },
                   child: const Text('Applife Cycle Demo'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/localizationDemo');
+                  },
+                  child: const Text('Localization'),
+                ),
+                 ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/localNotificationDemo');
+                  },
+                  child: const Text('Local Notification'),
+                ),
               ],
             ),
           ),

@@ -22,7 +22,6 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
     userBox = Hive.box<User>('users');
     log("UserBox : ${userBox.name}");
     super.initState();
-
   }
 
   @override
@@ -55,31 +54,34 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
             return Card(
               child: ListTile(
                 leading: IconButton(
-                    onPressed: () {
-                      if (isFav ?? false) {
-                        userBox.putAt(
-                          index,
-                          User(
-                              userName: user!.userName.toString(),
-                              email: user.email.toString(),
-                              password: user.password.toString(),
-                              isFaV: false),
-                        );
-                      } else {
-                        userBox.putAt(
-                          index,
-                          User(
-                              userName: user!.userName.toString(),
-                              email: user.email.toString(),
-                              password: user.password.toString(),
-                              isFaV: true),
-                        );
-                      }
-                    },
-                    icon: Icon(
-                      Icons.favorite,
-                      color: (isFav ?? false) ? Colors.red : Colors.grey,
-                    )),
+                  onPressed: () {
+                    if (isFav ?? false) {
+                      userBox.putAt(
+                        index,
+                        User(
+                          userName: user!.userName.toString(),
+                          email: user.email.toString(),
+                          password: user.password.toString(),
+                          isFaV: false,
+                        ),
+                      );
+                    } else {
+                      userBox.putAt(
+                        index,
+                        User(
+                          userName: user!.userName.toString(),
+                          email: user.email.toString(),
+                          password: user.password.toString(),
+                          isFaV: true,
+                        ),
+                      );
+                    }
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                    color: (isFav ?? false) ? Colors.red : Colors.grey,
+                  ),
+                ),
                 title: Text(user!.userName.toString()),
                 subtitle: Text(user.password.toString()),
                 trailing: IconButton(
@@ -105,34 +107,37 @@ class _HiveDemoScreenState extends State<HiveDemoScreen> {
               padding: const EdgeInsets.all(0),
               height: 400,
               decoration: const BoxDecoration(
-                  color: Colors.white10,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  )),
+                color: Colors.white10,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                      width: double.infinity,
-                      height: 60,
-                      decoration: const BoxDecoration(
-                          color: Colors.deepPurple,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(28),
-                            topRight: Radius.circular(28),
-                          )),
-                      child: Center(
-                        child: Text(
-                          "Product Details",
-                          style: TextStyle(
-                              fontFamily: 'Manrope',
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple.shade100),
-                        ),
-                      )),
+                    width: double.infinity,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      color: Colors.deepPurple,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(28),
+                        topRight: Radius.circular(28),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Product Details",
+                        style: TextStyle(
+                            fontFamily: 'Manrope',
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple.shade100),
+                      ),
+                    ),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),

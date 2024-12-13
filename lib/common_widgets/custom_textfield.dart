@@ -62,13 +62,14 @@ class CustomTextfield extends StatelessWidget {
           return null;
         },
         decoration: InputDecoration(
-            hintText: hintText,
-            prefixIcon: Icon(icon),
-            suffix: Icon(suffixIcons),
-            border: const OutlineInputBorder(),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.deepPurple),
-            )),
+          hintText: hintText,
+          prefixIcon: Icon(icon),
+          suffix: Icon(suffixIcons),
+          border: const OutlineInputBorder(),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.deepPurple),
+          ),
+        ),
       ),
     );
   }

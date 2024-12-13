@@ -14,7 +14,7 @@ class IsolateDemoScreen extends StatefulWidget {
 
 class _IsolateDemoScreenState extends State<IsolateDemoScreen> {
   TextEditingController factController = TextEditingController();
-  int? factorial= 0;
+  int? factorial = 0;
   bool isLoading = false;
   String url = 'https://jsonplaceholder.typicode.com/todos/';
   Future<List<Todos>>? todoList;
@@ -56,11 +56,13 @@ class _IsolateDemoScreenState extends State<IsolateDemoScreen> {
                       ElevatedButton(
                           onPressed: () async {
                             final receivePort = ReceivePort();
-                            await Isolate.spawn(calculateFactorial,Data(int.parse(factController.text),receivePort.sendPort));
+                            await Isolate.spawn(
+                                calculateFactorial,
+                                Data(int.parse(factController.text),
+                                    receivePort.sendPort));
                             receivePort.listen((fact) {
                               factorial = fact;
-                              setState(() {
-                              });
+                              setState(() {});
                             });
                           },
                           child: const Text('Calculate')),
@@ -116,7 +118,9 @@ class _IsolateDemoScreenState extends State<IsolateDemoScreen> {
                       setState(() {});
                     },
                     child: const Text("Parse Json")),
-                const SizedBox(height: 5,),
+                const SizedBox(
+                  height: 5,
+                ),
                 FutureBuilder(
                   future: todoList,
                   builder: (context, snapshot) {
@@ -140,8 +144,8 @@ class _IsolateDemoScreenState extends State<IsolateDemoScreen> {
                       );
                     } else {
                       return const Center(
-                        // child: CircularProgressIndicator(),
-                      );
+                          // child: CircularProgressIndicator(),
+                          );
                     }
                   },
                 )
