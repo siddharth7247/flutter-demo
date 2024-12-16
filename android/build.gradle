@@ -3,9 +3,16 @@ allprojects {
         google()
         mavenCentral()
     }
-    dependencies {
-  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 }
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.1'
+    }
 }
 
 rootProject.buildDir = "../build"

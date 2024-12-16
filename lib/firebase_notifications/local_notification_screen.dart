@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_demo/firebase_notifications/local_notification.dart';
 
 class LocalNotificationScreen extends StatelessWidget {
-  const LocalNotificationScreen({super.key});
-
+  LocalNotificationScreen({super.key});
+  DateTime scheduleTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +30,43 @@ class LocalNotificationScreen extends StatelessWidget {
                     payload: "Simple notification");
               },
               child: const Text("Action Notification"),
+            ),
+            TextButton(
+              onPressed: () {
+                DatePicker.showDateTimePicker(
+                  context,
+                  showTitleActions: true,
+                  onChanged: (date) => scheduleTime = date,
+                  onConfirm: (date) {},
+                );
+              },
+              child: Text('Select Time'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                LocalNotification.showScheduleNotification(
+                    title: "Schedule Notification",
+                    body: "Schedule Notification Body",
+                    payload: " Schedule notification",
+                    time: scheduleTime);
+               
+              },
+              child: const Text("Shedule Notification"),
+            ),
+             ElevatedButton(
+              onPressed: () {
+                LocalNotification.showNotification(
+                    title: "Big Text Notification",
+                    body: "Big Text Notification",
+                    payload: "Big Text notification");
+              },
+              child: const Text("Big Text Notification"),
+            ),
+             ElevatedButton(
+              onPressed: () {
+                LocalNotification.showProgressNotification();
+              },
+              child: const Text("Progress Notification"),
             ),
           ],
         ),

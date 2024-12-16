@@ -31,6 +31,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +45,7 @@ void main() async {
   await Hive.initFlutter(documentDir.path);
   Hive.registerAdapter(UserAdapter());
   await Hive.openBox<User>('users');
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 
@@ -158,7 +161,7 @@ class _MyAppState extends State<MyApp> {
             '/cubitDemo': (context) => const UserDetailsCubitScreen(),
             '/appLifeCycleDemo': (context) => const ApplifeCycleDemo(),
             '/localizationDemo': (context) => const LocalizationDemo(),
-            '/localNotificationDemo' : (context) => const LocalNotificationScreen(),
+            '/localNotificationDemo' : (context) =>  LocalNotificationScreen(),
           },
         );
       },
